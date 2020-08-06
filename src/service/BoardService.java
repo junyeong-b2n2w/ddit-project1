@@ -75,6 +75,7 @@ public class BoardService {
 		System.out.println("======================================");
 		System.out.println("번호\t 제목\t 작성자\t작성일");
 		for(Map<String, Object> post : boardArticle){
+			System.out.print(post.get("POST_PAR_NUM") == null ? "" : "▷" );
 			System.out.println(post.get("POST_NUM") + "\t"
 					+ post.get("POST_TITLE") + "\t"
 					+ post.get("MEM_NAME") + "\t"
@@ -122,14 +123,16 @@ public class BoardService {
 		System.out.println("--------------------------------------");
 		System.out.println(postArticle.get("POST_CONTENT"));
 		System.out.println("================댓글===================");
+
 		for(Map<String, Object> com : comment) {
+			System.out.print(com.get("COM_PAR_NUM") == null ? "" : "▷" );
 			System.out.println(com.get("COM_NUM") + "\t"
 			+ com.get("MEM_NAME") + "\t"
 			+ com.get("COM_CONTENT") );
 		}
 		System.out.println("======================================");
 
-		System.out.println("1.수정\t2.삭제\t3.댓글입력\t0.게시글목록 보기");
+		System.out.println("1.수정\t2.삭제\t3.댓글\t0.게시글목록 보기");
 		System.out.print("입력 > ");
 		int input = ScanUtil.nextInt();
 
@@ -162,14 +165,7 @@ public class BoardService {
 				boardDao.postDelete(param);
 				return View.BOARD_VIEW;
 			case 3:
-				System.out.println("댓글 내용을 입력 하세요>");
-				String com = ScanUtil.nextLine();
-
-				param.add(null);
-				param.add(Controller.loginUser.get("MEM_NUM"));
-				param.add(com);
-				param.add(selectedPostNo);
-				boardDao.commentAdd(param);
+				comment();
 				return View.POST_VIEW;
 			case 0:
 				return View.BOARD_VIEW;
@@ -180,7 +176,9 @@ public class BoardService {
 	}
 
 	public int postInsert() {
-		
+
+		System.out.println("답글을 달 번호를 입력해주세요(그냥 글은 0)");
+		int input = ScanUtil.nextInt();
 		System.out.println("새로 등록할 글 제목을 입력 하세요>");
 		String title = ScanUtil.nextLine();
 		System.out.println("새로 등록할 글 내용을 입력 하세요>");
@@ -190,11 +188,12 @@ public class BoardService {
 		ArrayList<Object> param = new ArrayList<>();
 		
 //		boardnum =>  타이틀, 텍스트, 작성자
-		
+
 
 		param.add(title);
 		param.add(text);
 		param.add(Controller.loginUser.get("MEM_NUM"));
+		param.add(input==0 ? null : input);
 		param.add(selectedBoardNo);
 		
 		
@@ -206,7 +205,58 @@ public class BoardService {
 		return View.BOARD_LIST;
 	}
 
+	public int comment() {
+		System.out.println("1.댓글 쓰기\t2.댓글수정\t3.댓글삭제\t0.돌아가기");
+		int input = ScanUtil.nextInt();
+		ArrayList<Object> param = new ArrayList<>();
 
-	
-	
+		switch (input) {
+			case 1:
+				System.out.println("댓글을 달 번호를 입력해주세요(그냥댓글은 0)");
+				input = ScanUtil.nextInt();
+				System.out.println("댓글 내용을 입력 하세요>");
+				String com = ScanUtil.nextLine();
+
+				param.add(input==0 ? null : input);
+				param.add(Controller.loginUser.get("MEM_NUM"));
+				param.add(com);
+				param.add(selectedPostNo);
+				System.out.println(boardDao.commentAdd(param)  + "건의 댓글이 추가 되었습니다.");
+
+				return View.POST_VIEW;
+			case 2:
+				System.out.println("수정할 댓글 번호를 입력해주세요");
+				input = ScanUtil.nextInt();
+
+				if(!boardDao.commentWriter(input).get("COM_WRITER").equals(Controller.loginUser.get("MEM_NUM"))){
+					System.out.println("작성자만 수정 가능합니다.");
+					return View.POST_VIEW;
+				}
+
+				System.out.println("수정할 댓글 내용을 입력 하세요>");
+				com = ScanUtil.nextLine();
+
+				param.add(com);
+				param.add(input);
+				System.out.println(boardDao.commentEdit(param) + "건의 댓글이 수정 되었습니다." );
+				return View.POST_VIEW;
+			case 3:
+				System.out.println("삭제할 댓글 번호를 입력해주세요");
+				input = ScanUtil.nextInt();
+				if(!boardDao.commentWriter(input).get("COM_WRITER").equals(Controller.loginUser.get("MEM_NUM"))){
+					System.out.println("작성자만 삭제 가능합니다.");
+					return View.POST_VIEW;
+				}
+				param.add(input);
+				System.out.println(boardDao.commentDelete(param)+ "건의 댓글이 삭제 되었습니다.");
+				return View.POST_VIEW;
+			case 0:
+				return View.POST_VIEW;
+
+
+
+
+		}
+		return View.POST_VIEW;
+	}
 }
