@@ -43,7 +43,8 @@ public class BoardDao {
 				" WHERE BOARD_NUM = ?" +
 				" AND POST_DEL = 1" +
 				" START WITH POST_PAR_NUM IS NULL" +
-				" CONNECT BY PRIOR POST_NUM = POST_PAR_NUM";
+				" CONNECT BY PRIOR POST_NUM = POST_PAR_NUM" +
+				" ORDER SIBLINGS BY POST_NUM DESC";
 
 
 		ArrayList<Object> param = new ArrayList<>();
