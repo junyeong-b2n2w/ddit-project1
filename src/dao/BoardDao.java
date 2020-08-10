@@ -40,7 +40,7 @@ public class BoardDao {
 		
 		String sql = "SELECT POST_NUM, POST_TITLE, POST_DATE, POST_WRITER, MEM_NAME, POST_PAR_NUM" +
 				" FROM TAB_POST JOIN TAB_MEMBER ON (TAB_POST.POST_WRITER = TAB_MEMBER.MEM_NUM)" +
-				" WHERE BOARD_NUM = ?" +
+				" WHERE POST_BOARD_NUM = ?" +
 				" AND POST_DEL = 1" +
 				" START WITH POST_PAR_NUM IS NULL" +
 				" CONNECT BY PRIOR POST_NUM = POST_PAR_NUM" +
@@ -89,7 +89,7 @@ public class BoardDao {
 	
 	
 	public int postInsert(ArrayList<Object> param){
-		String sql = "INSERT INTO TAB_POST VALUES( (SELECT NVL(MAX(POST_NUM),0) +1 FROM TAB_POST) , ?, ?, ? ,sysdate , 0 , 1,?,? )";
+		String sql = "INSERT INTO TAB_POST VALUES( (SELECT NVL(MAX(POST_NUM),0) +1 FROM TAB_POST) ,?, ?, ?, ? ,sysdate , 0 , 1,? )";
 				
 		return jdbc.update(sql, param);
 	}
