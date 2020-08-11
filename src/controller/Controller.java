@@ -3,6 +3,7 @@ package controller;
 import java.util.Map;
 
 import service.BoardService;
+import service.CartService;
 import service.OrderService;
 import service.UserService;
 import util.ScanUtil;
@@ -25,7 +26,7 @@ public class Controller {
 	private UserService userService = UserService.getInstance();
 	private BoardService boardService = BoardService.getInstance();
 	private OrderService orderService = OrderService.getInstance();
-	
+	private CartService cartService = CartService.getInstance();
 	
 
 	private void start() {
@@ -42,6 +43,7 @@ public class Controller {
 				case View.BOARD_INSERT_FORM:  view = boardService.postInsert(); break;
 				case View.POST_VIEW:  view = boardService.postView(boardService.selectedPostNo); break;
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
+				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;
 
 			default:
 				break;

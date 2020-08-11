@@ -27,12 +27,15 @@ public class OrderService {
 	}
 
 	private OrderDao orderDao = OrderDao.getInstance();
+	private CartService cartService = CartService.getInstance();
 
+	
+	
 public int orderMainView(){
 	
 	System.out.println("==============주문 페이지=============");
 	System.out.println("==============주문 페이지=============");
-	System.out.println("1. 검색\t2.품목 추가");
+	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인");
 	System.out.print("입력 > ");
 	int input = ScanUtil.nextInt();
 	switch (input) {
@@ -44,10 +47,14 @@ public int orderMainView(){
 		return orderSearch(cate, search);
 
 	case 2:
-		
+		cartService.cartAdd();
 		
 		return View.ORDER_MAIN_VIEW;
-	case 3: return View.HOME;
+	case 3:
+		cartService.cartMain();
+		
+		return View.ORDER_MAIN_VIEW;
+	case 4: return View.HOME;
 	case 0:
 		Controller.loginUser = null;
 		return View.HOME;
@@ -62,11 +69,11 @@ public int orderMainView(){
 	
 }
 
+
+
+
+
 private int orderSearch(int cate, String search) {
-	
-	
-	
-	
 	
 	
 	
