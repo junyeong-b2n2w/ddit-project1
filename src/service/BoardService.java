@@ -111,6 +111,10 @@ public class BoardService {
 	}
 
 	public int postView(int selectedPostNo) {
+		
+		//조회수 증가 쿼리
+		
+		postViewCount(selectedPostNo);
 		Map<String, Object> postArticle = boardDao.postSelect(selectedPostNo);
 
 		List<Map<String, Object>> comment = boardDao.commentList(selectedPostNo);
@@ -124,6 +128,8 @@ public class BoardService {
 		System.out.println(postArticle.get("POST_CONTENT"));
 		System.out.println("================댓글===================");
 
+		
+		
 		for(Map<String, Object> com : comment) {
 			System.out.print(com.get("COM_PAR_NUM") == null ? "" : "▷" );
 			System.out.println(com.get("COM_NUM") + "\t"
@@ -174,6 +180,17 @@ public class BoardService {
 
 		return View.BOARD_LIST;
 	}
+
+	private void postViewCount(int selectedPostNo) {
+		
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(selectedPostNo);
+		param.add(selectedPostNo);
+		
+		boardDao.postViewCount(param);
+		
+	}
+
 
 	public int postInsert() {
 

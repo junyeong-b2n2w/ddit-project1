@@ -94,6 +94,12 @@ public class BoardDao {
 		return jdbc.update(sql, param);
 	}
 
+	public int postViewCount(ArrayList<Object> param){
+		
+		String sql = "UPDATE TAB_POST SET POST_VIEW = (SELECT MAX(POST_VIEW)+1 FROM TAB_POST WHERE POST_NUM = ?) WHERE POST_NUM = ?";
+		
+		return jdbc.update(sql,param);
+	}
 
 
 	public int createBoardList(String name){
