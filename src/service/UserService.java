@@ -134,13 +134,15 @@ public class UserService {
 
 		Map<String, Object> user = userDao.selectUser(userId, encPassword);
 		
+		
+		
 		if(user == null){
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하였습니다.");
 		}else{
 			System.out.println("로그인 성공");
 			
 			Controller.loginUser = user;
-			
+
 			return View.BOARD_LIST;
 		}
 		return View.LOGIN;

@@ -214,6 +214,7 @@ public class JDBCUtil {
 			ps.setObject(i+1, param.get(i));
 		}
 		
+		
 		rs = ps.executeQuery();
 		
 		ResultSetMetaData md = rs.getMetaData();

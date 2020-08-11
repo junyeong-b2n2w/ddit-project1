@@ -45,7 +45,7 @@ public class BoardService {
 					+ board.get("BOARD_NAME"));
 		}
 		System.out.println("======================================");
-		System.out.println("1.게시판 선택\t2.---\t0.로그아웃");
+		System.out.println("1.게시판 선택\t2.---\t3.주문테스트\t0.로그아웃");
 		System.out.print("입력 > ");
 		
 		int input = ScanUtil.nextInt();
@@ -57,6 +57,7 @@ public class BoardService {
 			return View.BOARD_VIEW;
 
 		case 2: return View.HOME;
+		case 3: return View.ORDER_MAIN_VIEW;
 		case 0:
 			Controller.loginUser = null;
 			return View.HOME;

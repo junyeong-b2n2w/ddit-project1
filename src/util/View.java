@@ -9,7 +9,7 @@ public class View {
 	public static final int BOARD_VIEW = 4;
 	public static final int BOARD_INSERT_FORM = 5;
 	public static final int POST_VIEW = 6;
-	
+	public static final int ORDER_MAIN_VIEW = 101;
 	
 	
 }
