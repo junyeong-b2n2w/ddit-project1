@@ -74,8 +74,9 @@ public int orderMainView(){
 private int orderSearch(int cate, String search) {
 	
 	
+	Object wh_num = orderDao.checkCredit(Controller.loginUser.get("BRC_NUM")).get("BRC_WH_NUM");
 	
-	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, Controller.loginUser.get("BRC_NUM"));
+	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, wh_num);
 	System.out.println("==========검색결과===============");
 	System.out.println("품목번호\t품목명\t설명\t가격\t재고\t카테고리");
 	for(Map<String, Object> prod : items){

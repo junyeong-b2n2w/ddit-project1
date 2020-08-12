@@ -86,10 +86,11 @@ public class CartService {
 		int count = 0;
 		
 		Map<String, Object> odnum = cartDao.currentOrderNum();
+		Object wh_num = orderDao.checkCredit(Controller.loginUser.get("BRC_NUM")).get("BRC_WH_NUM");
 		
 		for(Map<String, Object> cartItem : cart){
 			orderDao.cartToOrder(odnum.get("OD_NUM") ,cartItem);
-			orderDao.outStock(cartItem, Controller.loginUser.get("BRC_NUM"));
+			orderDao.outStock(cartItem, wh_num);
 			count++;
 		}
 		

@@ -26,7 +26,7 @@ public class OrderDao {
 
 		private JDBCUtil jdbc = JDBCUtil.getInstance();
 		
-		public List<Map<String, Object>> orderSearchItem(int cate, String search , Object brc_num) {
+		public List<Map<String, Object>> orderSearchItem(int cate, String search , Object wh_num) {
 			// TODO Auto-generated method stub
 			
 			String sql = "SELECT tab_wh_stock.WH_NUM, tab_wh_stock.PROD_NUM, tab_product.prod_ctegory,"
@@ -61,7 +61,7 @@ public class OrderDao {
 //			}
 			
 			sql = sql + " AND tab_wh_stock.WH_NUM = ? ORDER BY tab_wh_stock.prod_num";
-			Object wh_num = checkCredit(brc_num).get("BRC_WH_NUM");
+			
 		
 			
 			param.add(wh_num);
@@ -73,7 +73,7 @@ public class OrderDao {
 		
 		public int cartToOrder(Object order_num ,Map<String, Object> cartItem){
 			
-			String sql = "INSERT INTO TAB_ORDER_DETAIL VALUES(? , ? ,?)";
+			String sql = "INSERT INTO TAB_ORDER_DETAIL VALUES( ? , ? , ?)";
 			
 			ArrayList<Object> param = new ArrayList<>();
 			param.add(order_num);
@@ -102,17 +102,17 @@ public class OrderDao {
 			return jdbc.update(sql, param);
 		}
 
-		public int outStock(Map<String, Object> cartItem, Object brc_num) {
+		public int outStock(Map<String, Object> cartItem, Object wh_num) {
 			
 			String sql = "UPDATE TAB_WH_STOCK SET STOCK_COUNT = "
 					+ " (SELECT STOCK_COUNT FROM TAB_WH_STOCK WHERE WH_NUM = ? AND PROD_NUM = ?) - ?"
 					+ " WHERE WH_NUM =? AND PROD_NUM = ? ";
 			
 			ArrayList<Object> param = new ArrayList<>();
-			param.add(checkCredit(brc_num).get("BRC_WH_NUM"));
+			param.add(wh_num);
 			param.add(cartItem.get("PROD_NUM"));
 			param.add(cartItem.get("CART_QUNTITY"));
-			param.add(checkCredit(brc_num).get("BRC_WH_NUM"));
+			param.add(wh_num);
 			param.add(cartItem.get("PROD_NUM"));
 			
 			
