@@ -47,7 +47,7 @@ public class MyPageService {
 			password = pass(password);
 			
 			if(password.equals(Controller.loginUser.get("MEM_PASSWORD"))){
-				System.out.println("1.지점 이름\t2.주소\t3.이메일\t4.전화번호");
+				System.out.println("1.지점 이름\t2.주소\t3.이메일\t4.전화번호\t5.창고번호");
 				input = ScanUtil.nextInt();
 				String type = null;
 				switch (input) {
@@ -62,7 +62,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_NAME";
 					myPageDao.udtBrcInfo(param, type);
-					return View.MY_PAGE_ADMIN;
+					return View.MY_PAGE_USER;
 
 				case 2:
 //					주소
@@ -75,7 +75,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_ADDRESS";
 					myPageDao.udtBrcInfo(param, type);
-					return View.MY_PAGE_ADMIN;
+					return View.MY_PAGE_USER;
 				case 3:
 //					이메일
 					System.out.println(myBranch.get("BRC_EMAIL"));
@@ -87,7 +87,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_EMAIL";
 				    myPageDao.udtBrcInfo(param, type);
-				    return View.MY_PAGE_ADMIN;
+				    return View.MY_PAGE_USER;
 				case 4:
 //				전화번호
 					System.out.println(myBranch.get("BRC_PHONE"));
@@ -99,7 +99,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_PHONE";
 					myPageDao.udtBrcInfo(param, type);
-					return View.MY_PAGE_ADMIN;
+					return View.MY_PAGE_USER;
 				
 				case 5:
 					System.out.println(myBranch.get("BRC_WH_NUM"));
@@ -111,7 +111,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_WH_NUM";
 					myPageDao.udtBrcInfo(param, type);
-					return View.MY_PAGE_ADMIN;
+					return View.MY_PAGE_USER;
 				
 				}
 				

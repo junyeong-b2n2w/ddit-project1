@@ -194,7 +194,7 @@ public class BoardService {
 		
 //		boardnum =>  타이틀, 텍스트, 작성자
 
-
+		param.add(input==0 ? null : input);
 		param.add(title);
 		param.add(text);
 		param.add(Controller.loginUser.get("MEM_NUM"));
