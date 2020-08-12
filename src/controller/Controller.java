@@ -2,11 +2,7 @@ package controller;
 
 import java.util.Map;
 
-import service.BoardService;
-import service.CartService;
-import service.MyPageService;
-import service.OrderService;
-import service.UserService;
+import service.*;
 import util.ScanUtil;
 import util.View;
 
@@ -26,6 +22,8 @@ public class Controller {
 	private MyPageService myPageService = MyPageService.getInstance();
 	private OrderService orderService = OrderService.getInstance();
 	private CartService cartService = CartService.getInstance();
+	private MyPageAdminService myPageAdminService = MyPageAdminService.getInstance();
+
 
 	private void start() {
 		
@@ -40,7 +38,16 @@ public class Controller {
 				case View.BOARD_VIEW:  view = boardService.boardView(boardService.selectedBoardNo); break;
 				case View.BOARD_INSERT_FORM:  view = boardService.postInsert(); break;
 				case View.POST_VIEW:  view = boardService.postView(boardService.selectedPostNo); break;
-				case View.MY_PAGE_ADMIN: view = myPageService.myPageUser(); break;
+				case View.MY_PAGE_USER: view = myPageService.myPageUser(); break;
+				case View.MY_PAGE_ADMIN: view = myPageAdminService.myPageAdminHome(); break;
+				case View.MEM_CONTROL: view = myPageAdminService.myPageAdminMemControl(); break;
+				case View.BRANCH_CONTROL: view = myPageAdminService.myPageAdminBranchControl(); break;
+				case View.WH_CONTROL: view = myPageAdminService.myPageAdminWhControl(); break;
+				case View.PROD_CONTROL: view = myPageAdminService.myPageAdminProdControl(); break;
+				case View.WH_STOCK: view = myPageAdminService.myPageAdminWhStockControl(); break;
+				case View.MY_PAGE_COMMON: view = myPageAdminService.myPageCommonHome(); break;
+
+
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
 				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;
 

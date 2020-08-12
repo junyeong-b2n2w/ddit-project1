@@ -56,7 +56,11 @@ public class BoardService {
 			selectedBoardNo = ScanUtil.nextInt();
 			return View.BOARD_VIEW;
 
-		case 2: return View.MY_PAGE_ADMIN;
+		case 2:
+		if(Controller.loginUser.get("MEM_PERMISSION").equals("1")){
+			return View.MY_PAGE_ADMIN;
+		}else
+			return View.MY_PAGE_USER;
 		case 3: return View.ORDER_MAIN_VIEW;
 		case 0:
 			Controller.loginUser = null;
