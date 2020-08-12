@@ -105,6 +105,15 @@ public class BoardService {
 
 			return postView(selectedPostNo);
 		case 2: 
+			if(selectedBoardNo == 1){
+				if(Integer.valueOf(String.valueOf(Controller.loginUser.get("MEM_PERMISSION"))) == 1){
+					postInsert();
+					return View.BOARD_VIEW;
+				}else{
+					System.out.println("글 작성 권한이 없습니다.");
+					return View.BOARD_VIEW;
+				}
+			}
 			postInsert();
 			return View.BOARD_VIEW;
 		case 0:
@@ -162,13 +171,14 @@ public class BoardService {
 				System.out.println(result + "건이 수정 되었습니다.");
 				return View.POST_VIEW;
 			case 2:
-				if(!Controller.loginUser.get("MEM_NUM").equals(postArticle.get("POST_WRITER"))){
+				if(Controller.loginUser.get("MEM_NUM").equals(postArticle.get("POST_WRITER")) 
+					    || Integer.valueOf(String.valueOf(Controller.loginUser.get("MEM_PERMISSION"))) == 1){
+						param.add(selectedPostNo);
+						boardDao.postDelete(param);
+						return View.BOARD_VIEW;
+					}
 					System.out.println("작성자만 삭제 가능합니다.");
 					return View.POST_VIEW;
-				}
-				param.add(selectedPostNo);
-				boardDao.postDelete(param);
-				return View.BOARD_VIEW;
 			case 3:
 				comment();
 				return View.POST_VIEW;
@@ -248,12 +258,13 @@ public class BoardService {
 			case 3:
 				System.out.println("삭제할 댓글 번호를 입력해주세요");
 				input = ScanUtil.nextInt();
-				if(!boardDao.commentWriter(input).get("COM_WRITER").equals(Controller.loginUser.get("MEM_NUM"))){
-					System.out.println("작성자만 삭제 가능합니다.");
+				if(boardDao.commentWriter(input).get("COM_WRITER").equals(Controller.loginUser.get("MEM_NUM")) 
+				    || Integer.valueOf(String.valueOf(Controller.loginUser.get("MEM_PERMISSION"))) == 1){
+					param.add(input);
+					System.out.println(boardDao.commentDelete(param)+ "건의 댓글이 삭제 되었습니다.");
 					return View.POST_VIEW;
 				}
-				param.add(input);
-				System.out.println(boardDao.commentDelete(param)+ "건의 댓글이 삭제 되었습니다.");
+				System.out.println("작성자만 삭제 가능합니다.");
 				return View.POST_VIEW;
 			case 0:
 				return View.POST_VIEW;
