@@ -241,7 +241,7 @@ public class MyPageAdminService {
 		for(Map<String, Object> wh : whList){
 			System.out.println(wh.get("WH_NUM") + "\t"
 					+ wh.get("WH_ADRESS") + "\t"
-					+ (wh.get("WH_USE").equals("1") ? "사용" : "X"));
+					+ (String.valueOf(wh.get("WH_USE")).equals("1") ? "사용" : "X"));
 		}
 		System.out.println("================================================");
 		System.out.println("1.창고 추가\t2.창고 삭제\t3.정보수정\t0.이전 페이지");
@@ -265,7 +265,7 @@ public class MyPageAdminService {
 			System.out.println("삭제할 창고 번호>");
 			deleteWhNum = ScanUtil.nextInt();
 
-			myPageAdminDao.insertWhInfo(deleteWhNum);
+			myPageAdminDao.deleteWhInfo(deleteWhNum);
 			
 			return View.WH_CONTROL;
 		case 3:
@@ -418,9 +418,9 @@ public class MyPageAdminService {
 			return View.WH_STOCK;
 		case 0:
 			return View.MY_PAGE_ADMIN;
-			
-			
-			
+
+
+
 		}
 		return View.BOARD_LIST;
 	}

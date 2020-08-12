@@ -110,7 +110,7 @@ public class MyPageAdminDao {
     }
 
     public List<Map<String, Object>> selectWhList() {
-        String sql = "SELECT *"
+        String sql = "SELECT WH_NUM, WH_ADRESS, WH_USE"
                 + " FROM tab_warehouse";
 
         return jdbc.selectList(sql);
@@ -127,7 +127,7 @@ public class MyPageAdminDao {
 
     }
 
-    public int insertWhInfo(int deleteWhNum) {
+    public int deleteWhInfo(int deleteWhNum) {
 
         String sql = "DELETE FROM tab_warehouse"
                 + " WHERE wh_num = ?";
