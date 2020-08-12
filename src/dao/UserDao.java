@@ -67,6 +67,13 @@ public class UserDao {
 
 		return jdbc.selectOne(sql, param);
 	}
+
+	public int createBranch(String UserId) {
+		String sql = "insert into TAB_BRANCH values ((select NVL(MAX(brc_num), 0)+1 from tab_branch), null, null, null, 0, 0,"
+				+ "(select MAX(MEM_NUM) from TAB_MEMBER),1)";
+		
+		return jdbc.update(sql);
+	}
 	
 	
 	

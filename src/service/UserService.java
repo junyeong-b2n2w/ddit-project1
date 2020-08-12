@@ -108,6 +108,7 @@ public class UserService {
 		
 		if(0<result){
 			System.out.println("회원가입 성공");
+			userDao.createBranch(userId);
 		}else{
 			System.out.println("회원가입 실패");
 		}

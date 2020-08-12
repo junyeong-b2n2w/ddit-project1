@@ -35,7 +35,7 @@ public class MyPageService {
 		System.out.println(myBranch.get("BRC_NAME") + "\t지점번호    " + myBranch.get("BRC_NUM"));
 		System.out.println("주소\t" + myBranch.get("BRC_ADDRESS"));
 		System.out.println("전화번호\t" + myBranch.get("BRC_PHONE") + "\t이메일\t" + myBranch.get("BRC_EMAIL"));
-		System.out.println("예치금\t" + myBranch.get("BRC_CREDIT"));
+		System.out.println("예치금\t" + myBranch.get("BRC_CREDIT") + "\t창고번호\t" + myBranch.get("BRC_WH_NUM"));
 		System.out.println("===================================");
 		System.out.println("1.지점 정보 수정\t2.예치금 추가\t0.돌아가기..");
 		
@@ -62,7 +62,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_NAME";
 					myPageDao.udtBrcInfo(param, type);
-					return View.BOARD_LIST;
+					return View.MY_PAGE_ADMIN;
 
 				case 2:
 //					주소
@@ -75,7 +75,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_ADDRESS";
 					myPageDao.udtBrcInfo(param, type);
-					return View.BOARD_LIST;
+					return View.MY_PAGE_ADMIN;
 				case 3:
 //					이메일
 					System.out.println(myBranch.get("BRC_EMAIL"));
@@ -87,7 +87,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_EMAIL";
 				    myPageDao.udtBrcInfo(param, type);
-				    return View.BOARD_LIST;
+				    return View.MY_PAGE_ADMIN;
 				case 4:
 //				전화번호
 					System.out.println(myBranch.get("BRC_PHONE"));
@@ -99,8 +99,23 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_PHONE";
 					myPageDao.udtBrcInfo(param, type);
-					return View.BOARD_LIST;
-				}//switch
+					return View.MY_PAGE_ADMIN;
+				
+				case 5:
+					System.out.println(myBranch.get("BRC_WH_NUM"));
+					System.out.print("수정할 창고번호 : ");
+					String stock = ScanUtil.nextLine();
+					
+					param = new ArrayList<>();
+					param.add(stock);
+					param.add(myBranch.get("BRC_NUM"));
+					type = "BRC_WH_NUM";
+					myPageDao.udtBrcInfo(param, type);
+					return View.MY_PAGE_ADMIN;
+				
+				}
+				
+				//switch
 			} else{
 				System.out.println("비밀번호가 일치하지 않습니다.");
 			} //if
