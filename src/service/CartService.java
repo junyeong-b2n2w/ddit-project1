@@ -26,6 +26,7 @@ public class CartService {
 		
 	}
 	private CartDao cartDao = CartDao.getInstance();
+	private OrderDao orderDao = OrderDao.getInstance();
 	public static List<Map<String, Object>> cart = new ArrayList<>();
 	
 	
@@ -44,7 +45,9 @@ public class CartService {
 		case 2: 
 			cartDelete();
 			return View.CART_MAIN_VIEW;
-		case 3: return View.HOME;
+		case 3: 
+			cartOrder();
+			return View.HOME;
 		case 0:
 			return View.HOME;
 			
@@ -56,6 +59,49 @@ public class CartService {
 	
 	
 	
+	private int cartOrder() {
+		int total = 0;
+		for(Map<String, Object> cartItem : cart){
+		total = total + Integer.valueOf(String.valueOf(cartItem.get("CART_QUNTITY")))
+				 * Integer.valueOf(String.valueOf(cartItem.get("PROD_PRICE")));
+		}
+		int credit = Integer.valueOf(String.valueOf(orderDao.checkCredit(Controller.loginUser.get("BRC_NUM")).get("BRC_CREDIT")));
+		
+		
+		if(total > credit){
+			System.out.println("예치금이 부족합니다");
+			return View.CART_MAIN_VIEW;
+		}
+		int remain = credit - total;
+		orderDao.useCredit(remain, Controller.loginUser.get("BRC_NUM"));
+		System.out.println("예치금 사용합니다. 잔여 :" + remain);
+		
+		
+		//주문 하기
+		//1. 주문 번호 생성 및 주문
+		
+		int proc = cartDao.cartOrderProc(Controller.loginUser.get("BRC_NUM"));
+		
+		//2. 주문상세
+		int count = 0;
+		
+		Map<String, Object> odnum = cartDao.currentOrderNum();
+		
+		for(Map<String, Object> cartItem : cart){
+			orderDao.cartToOrder(odnum.get("OD_NUM") ,cartItem);
+			orderDao.outStock(cartItem, Controller.loginUser.get("BRC_NUM"));
+			count++;
+		}
+		
+		System.out.println("주문번호" + odnum.get("OD_NUM")+ "," +count + "건이 주문 완료되었습니다.");
+		
+		cart.removeAll(cart);
+		
+		// 재고 빼야함
+		
+		return View.ORDER_MAIN_VIEW;
+	}
+
 	private void cartDelete() {
 		System.out.print("삭제할 품목 번호 > ");
 		int selectedItem = ScanUtil.nextInt();
@@ -102,7 +148,7 @@ public class CartService {
 				 * Integer.valueOf(String.valueOf(cartItem.get("PROD_PRICE")));
 		}
 		System.out.println("total = " + total);
-
+		
 	}
 	
 	

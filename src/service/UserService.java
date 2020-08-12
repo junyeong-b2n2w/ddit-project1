@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import controller.Controller;
+import dao.MyPageDao;
 import dao.UserDao;
 import util.ScanUtil;
 import util.View;
@@ -31,6 +32,8 @@ public class UserService {
 	//-------------
 	
 	private UserDao userDao = UserDao.getInstance();
+	private MyPageDao myPageDao = MyPageDao.getInstance();
+	
 	
 	public int join() {
 		//아이디 중복 검증
@@ -142,7 +145,8 @@ public class UserService {
 			System.out.println("로그인 성공");
 			
 			Controller.loginUser = user;
-
+			user.put("BRC_NUM", (myPageDao.selectMyPage(user.get("MEM_NUM"))).get("BRC_NUM"));
+		
 			return View.BOARD_LIST;
 		}
 		return View.LOGIN;

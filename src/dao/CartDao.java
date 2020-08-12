@@ -35,4 +35,24 @@ public class CartDao {
 		return jdbc.selectOne(sql,param);
 	}
 	
+
+	public int cartOrderProc(Object brc_num) {
+		
+		String sql = "INSERT INTO TAB_ORDER VALUES ((SELECT NVL(MAX(OD_NUM),0) +1 FROM TAB_ORDER), ? ,sysdate)";
+		
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(brc_num);
+		
+		return jdbc.update(sql, param);
+	}
+	
+	public Map<String, Object> currentOrderNum (){
+	
+		String sql = "SELECT NVL(MAX(OD_NUM),0) OD_NUM FROM TAB_ORDER";
+	
+	return jdbc.selectOne(sql);
+	}
+	
+	
+	
 }

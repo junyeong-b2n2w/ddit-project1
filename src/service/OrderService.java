@@ -35,7 +35,7 @@ public int orderMainView(){
 	
 	System.out.println("==============주문 페이지=============");
 	System.out.println("==============주문 페이지=============");
-	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인");
+	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인\t0.돌아가기");
 	System.out.print("입력 > ");
 	int input = ScanUtil.nextInt();
 	switch (input) {
@@ -54,10 +54,8 @@ public int orderMainView(){
 		cartService.cartMain();
 		
 		return View.ORDER_MAIN_VIEW;
-	case 4: return View.HOME;
-	case 0:
-		Controller.loginUser = null;
-		return View.HOME;
+	case 0: return View.BOARD_LIST;
+		
 		
 	}
 	
@@ -77,7 +75,7 @@ private int orderSearch(int cate, String search) {
 	
 	
 	
-	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search);
+	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, Controller.loginUser.get("BRC_NUM"));
 	System.out.println("==========검색결과===============");
 	System.out.println("품목번호\t품목명\t설명\t가격\t재고\t카테고리");
 	for(Map<String, Object> prod : items){
@@ -85,7 +83,7 @@ private int orderSearch(int cate, String search) {
 				+ prod.get("PROD_NAME") + "\t"
 				+ prod.get("PROD_TEXT") + "\t"
 				+ prod.get("PROD_PRICE") + "\t"
-				+ prod.get("COUNT") + "\t"
+				+ prod.get("STOCK_COUNT") + "\t"
 				+ prod.get("PROD_CTEGORY")
 				);
 	}
