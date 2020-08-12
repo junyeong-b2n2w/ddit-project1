@@ -4,6 +4,7 @@ import java.util.Map;
 
 import service.BoardService;
 import service.CartService;
+import service.MyPageService;
 import service.OrderService;
 import service.UserService;
 import util.ScanUtil;
@@ -16,18 +17,15 @@ public class Controller {
 
 		
 		new Controller().start();
-		
-		
 	}
-	
 	
 	public static Map<String, Object> loginUser;
 	
 	private UserService userService = UserService.getInstance();
 	private BoardService boardService = BoardService.getInstance();
+	private MyPageService myPageService = MyPageService.getInstance();
 	private OrderService orderService = OrderService.getInstance();
 	private CartService cartService = CartService.getInstance();
-	
 
 	private void start() {
 		
@@ -42,6 +40,7 @@ public class Controller {
 				case View.BOARD_VIEW:  view = boardService.boardView(boardService.selectedBoardNo); break;
 				case View.BOARD_INSERT_FORM:  view = boardService.postInsert(); break;
 				case View.POST_VIEW:  view = boardService.postView(boardService.selectedPostNo); break;
+				case View.MY_PAGE_ADMIN: view = myPageService.myPageUser(); break;
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
 				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;
 

@@ -45,7 +45,7 @@ public class BoardService {
 					+ board.get("BOARD_NAME"));
 		}
 		System.out.println("======================================");
-		System.out.println("1.게시판 선택\t2.---\t3.주문테스트\t0.로그아웃");
+		System.out.println("1.게시판 선택\t2.마이페이지\t3.주문테스트\t0.로그아웃");
 		System.out.print("입력 > ");
 		
 		int input = ScanUtil.nextInt();
@@ -56,7 +56,7 @@ public class BoardService {
 			selectedBoardNo = ScanUtil.nextInt();
 			return View.BOARD_VIEW;
 
-		case 2: return View.HOME;
+		case 2: return View.MY_PAGE_ADMIN;
 		case 3: return View.ORDER_MAIN_VIEW;
 		case 0:
 			Controller.loginUser = null;
@@ -112,10 +112,6 @@ public class BoardService {
 	}
 
 	public int postView(int selectedPostNo) {
-		
-		//조회수 증가 쿼리
-		
-		postViewCount(selectedPostNo);
 		Map<String, Object> postArticle = boardDao.postSelect(selectedPostNo);
 
 		List<Map<String, Object>> comment = boardDao.commentList(selectedPostNo);
@@ -129,8 +125,6 @@ public class BoardService {
 		System.out.println(postArticle.get("POST_CONTENT"));
 		System.out.println("================댓글===================");
 
-		
-		
 		for(Map<String, Object> com : comment) {
 			System.out.print(com.get("COM_PAR_NUM") == null ? "" : "▷" );
 			System.out.println(com.get("COM_NUM") + "\t"
@@ -182,17 +176,6 @@ public class BoardService {
 		return View.BOARD_LIST;
 	}
 
-	private void postViewCount(int selectedPostNo) {
-		
-		ArrayList<Object> param = new ArrayList<>();
-		param.add(selectedPostNo);
-		param.add(selectedPostNo);
-		
-		boardDao.postViewCount(param);
-		
-	}
-
-
 	public int postInsert() {
 
 		System.out.println("답글을 달 번호를 입력해주세요(그냥 글은 0)");
@@ -207,11 +190,11 @@ public class BoardService {
 		
 //		boardnum =>  타이틀, 텍스트, 작성자
 
-		param.add(input==0 ? null : input);
+
 		param.add(title);
 		param.add(text);
 		param.add(Controller.loginUser.get("MEM_NUM"));
-
+	
 		param.add(selectedBoardNo);
 		
 		

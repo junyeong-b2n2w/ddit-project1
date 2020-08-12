@@ -78,9 +78,7 @@ public class CartService {
 		int selectedItemCount = ScanUtil.nextInt();
 		
 		for(Map<String, Object> item : cart){
-			System.out.println(item.get("PROD_NUM"));
-			System.out.println(selectedItem);
-			System.out.println(String.valueOf(item.get("PROD_NUM")).equals(String.valueOf(selectedItem)));
+			
 			if(String.valueOf(item.get("PROD_NUM")).equals(String.valueOf(selectedItem))){
 				item.put("CART_QUNTITY", selectedItemCount);
 			}
