@@ -72,19 +72,19 @@ public class MyPageAdminService {
 		
 	//관리자화면	
 	public static int myPageAdminHome(){
-		
+
 		System.out.println("======================================");
 		System.out.println("관리자 페이지");
-		System.out.println("1. 회원관리 -- 권한( 관리자 / 지점 )");
+		System.out.println("1. 회원관리");
 		System.out.println("2. 지점관리");
-		System.out.println("3. 창고관리 번호 자동");
-		System.out.println("4. 품목관리 번호 자동");
-		System.out.println("5. 재고관리 -- 번호 자동 / 조인  / 재고 재고 수량 추가");
+		System.out.println("3. 창고관리");
+		System.out.println("4. 품목관리");
+		System.out.println("5. 재고관리");
 		System.out.println("6. 주문배송관리------" );
 		System.out.println("0. 이전화면");
 		System.out.println("======================================");
 		System.out.print("입력  > ");
-		
+
 		int input = ScanUtil.nextInt();
 		
 		switch (input) {
@@ -115,7 +115,7 @@ public class MyPageAdminService {
 			System.out.println(member.get("MEM_NAME") + "\t"
 					+ member.get("MEM_ID") + "\t"
 					+ member.get("MEM_REGDATE") + "\t"
-					+ member.get("MEM_PERMISSION"));
+					+ (member.get("MEM_PERMISSION").equals("1") ? "관리자" : "지점"));
 		}
 		System.out.println("===========================================");
 		System.out.println("1.회원 권한 수정\t0.이전 페이지");
@@ -241,7 +241,7 @@ public class MyPageAdminService {
 		for(Map<String, Object> wh : whList){
 			System.out.println(wh.get("WH_NUM") + "\t"
 					+ wh.get("WH_ADRESS") + "\t"
-					+ wh.get("WH_USE"));
+					+ (wh.get("WH_USE").equals("1") ? "사용" : "X"));
 		}
 		System.out.println("================================================");
 		System.out.println("1.창고 추가\t2.창고 삭제\t3.정보수정\t0.이전 페이지");
@@ -360,7 +360,7 @@ public class MyPageAdminService {
 		}
 		
 		System.out.println("===========================================");
-		System.out.println("1.재고조회\t2.재고추가\t3.재고 삭제\t0.이전 페이지");
+		System.out.println("1.재고 조회\t2.재고 추가\t3.재고 방출\t0.이전 페이지");
 		System.out.print("입력 > ");
 		int input = ScanUtil.nextInt();
 		
@@ -373,10 +373,11 @@ public class MyPageAdminService {
 			
 			System.out.println("===================================");
 			System.out.println("-------------재 고 목 록-------------");
-			System.out.println("창고코드\t제품코드\t수량");
+			System.out.println("창고코드\t제품코드\t제품명\t수량");
 			for(Map<String, Object> wh : whList2){
 				System.out.println(wh.get("WH_NUM") + "\t"
 						+ wh.get("PROD_NUM") + "\t"
+						+ wh.get("PROD_NAME") + "\t"
 						+ wh.get("STOCK_COUNT"));
 			}
 			System.out.println("-----------------------------------");
@@ -391,10 +392,21 @@ public class MyPageAdminService {
 			System.out.println("추가할 수량>");
 			insertStockAddCount = ScanUtil.nextInt();
 
+			//if select -> 창고번호, 제품번호로 재고테이블 조회
+			// 결과가 있어 -> updateStock
+			// 겨로가가 없어 - > INSERTSTOCK
 
-			myPageAdminDao.insertStock(insertWhNum, insertProdNum, insertStockAddCount);
-			
-			return View.WH_STOCK;
+
+			Map<String , Object> selectStocList = myPageAdminDao.selectStock(insertWhNum, insertProdNum);
+
+
+			if(Integer.valueOf(String.valueOf((selectStocList.get("COUNT")))) == 0){
+				myPageAdminDao.insertStock(insertWhNum, insertProdNum, insertStockAddCount);
+				return View.WH_STOCK;
+			}else{
+				myPageAdminDao.updateStock(insertWhNum, insertProdNum, insertStockAddCount);
+				return View.WH_STOCK;
+			}
 		case 3:
 			System.out.println("재고를 삭제할 창고번호>");
 			deleteStockWhNum = ScanUtil.nextInt();
