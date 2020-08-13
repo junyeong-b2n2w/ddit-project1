@@ -74,8 +74,8 @@ public int orderMainView(){
 
 
 private int orderSearch(int cate, String search) {
-	
-	
+
+
 	Object wh_num = orderDao.checkCredit(Controller.loginUser.get("BRC_NUM")).get("BRC_WH_NUM");
 	
 	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, wh_num);

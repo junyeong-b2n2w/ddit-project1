@@ -167,13 +167,19 @@ public class CartService {
 			System.out.println("본인이 사용하는 창고에 해당 품목이 존재하지 않습니다.");
 			return View.ORDER_MAIN_VIEW;
 		}
+
+		int count = 0;
 		for(Map<String, Object> item : searchItemList){
 			if(Integer.valueOf(String.valueOf(item.get("PROD_NUM"))) != selectedItem){
-				System.out.println("본인이 사용하는 창고에 해당 품목이 존재하지 않습니다.");
-				return View.ORDER_MAIN_VIEW;
+				count ++;
 			}
 		}
-		
+
+		if(searchItemList.size() == count){
+			System.out.println("본인이 사용하는 창고에 해당 품목이 존재하지 않습니다.");
+			return View.ORDER_MAIN_VIEW;
+		}
+
 		System.out.print("추가할 수량  > ");
 		int selectedItemCount = ScanUtil.nextInt();
 		

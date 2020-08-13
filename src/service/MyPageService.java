@@ -111,8 +111,7 @@ public class MyPageService {
 					param.add(myBranch.get("BRC_NUM"));
 					type = "BRC_WH_NUM";
 					myPageDao.udtBrcInfo(param, type);
-					Controller.loginUser.put("BRC_NUM", stock);
-					System.out.println(Controller.loginUser.get("BRC_NUM"));
+					Controller.loginUser.put("BRC_NUM", (myPageDao.selectMyPage(Controller.loginUser.get("MEM_NUM"))).get("BRC_NUM"));
 					return View.MY_PAGE_USER;
 				
 				}
