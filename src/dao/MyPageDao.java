@@ -29,7 +29,7 @@ public class MyPageDao {
 	}
 	
 	public Map<String, Object> selectMyPage(Object mem_num){
-		String sql = "SELECT brc_wh_num, brc_num, brc_name, brc_address, brc_email, brc_phone, brc_credit, brc_wh_num"
+		String sql = "SELECT brc_wh_num, brc_num, brc_name, brc_address, brc_email, brc_phone, brc_credit"
 				+ " FROM tab_branch"
 				+ " WHERE brc_mem_num = ?";
 		

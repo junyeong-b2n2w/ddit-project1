@@ -28,6 +28,7 @@ public class OrderService {
 
 	private OrderDao orderDao = OrderDao.getInstance();
 	private CartService cartService = CartService.getInstance();
+	private OrderViewService orderViewService = OrderViewService.getInstance();
 
 	
 	
@@ -35,7 +36,7 @@ public int orderMainView(){
 	
 	System.out.println("==============주문 페이지=============");
 	System.out.println("==============주문 페이지=============");
-	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인\t0.돌아가기");
+	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인\t4.주문내역 확인\t0.돌아가기");
 	System.out.print("입력 > ");
 	int input = ScanUtil.nextInt();
 	switch (input) {
@@ -51,6 +52,10 @@ public int orderMainView(){
 		
 	case 3:
 		return View.CART_MAIN_VIEW;
+	case 4:
+		orderViewService.orderViewList();
+		return View.ORDER_MAIN_VIEW;
+		
 	case 0: return View.BOARD_LIST;
 		
 		

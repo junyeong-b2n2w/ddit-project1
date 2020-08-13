@@ -147,7 +147,7 @@ public class UserService {
 			System.out.println("로그인 성공");
 			
 			Controller.loginUser = user;
-			user.put("BRC_NUM", (myPageDao.selectMyPage(user.get("MEM_NUM"))).get("BRC_NUM"));
+			Controller.loginUser.put("BRC_NUM", (myPageDao.selectMyPage(user.get("MEM_NUM"))).get("BRC_NUM"));
 		
 			return View.BOARD_LIST;
 		}

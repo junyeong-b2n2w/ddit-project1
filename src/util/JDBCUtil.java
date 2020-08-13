@@ -30,7 +30,7 @@ public class JDBCUtil {
 
 	// db접속정보
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
-	String user = "jun";
+	String user = "project";
 	String password = "java";
 
 	Connection con = null;

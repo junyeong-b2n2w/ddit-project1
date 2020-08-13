@@ -357,7 +357,7 @@ public class MyPageAdminService {
 		for(Map<String, Object> wh : whList){
 			System.out.println(wh.get("WH_NUM") + "\t"
 					+ wh.get("WH_ADRESS") + "\t"
-					+ wh.get("WH_USE"));
+					+ (Integer.valueOf(String.valueOf(wh.get("WH_USE"))) == 1 ? "사용" : "X"));
 		}
 		
 		System.out.println("===========================================");
