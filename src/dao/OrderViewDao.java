@@ -20,7 +20,7 @@ public class OrderViewDao {
 
 	private JDBCUtil jdbc = JDBCUtil.getInstance();
 	
-	public List<Map<String, Object>> orderList(Object brc_num, Object serchMonth){
+	public List<Map<String, Object>> orderList(Object brc_num, Object searchMonth){
 		String sql = "SELECT od_dt.OD_NUM, prod.PROD_NAME, od_dt.od_count, prod.prod_price, od.OD_DATE"
 				+ " FROM tab_branch brc, tab_order od, tab_order_detail od_dt, tab_product prod"
 				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = od_dt.od_num AND od_dt.prod_num = prod.prod_num"
@@ -29,9 +29,17 @@ public class OrderViewDao {
 		
 		List<Object> param = new ArrayList<>();
 		param.add(brc_num);
-		param.add(serchMonth);
+		param.add(searchMonth);
 		
 		return jdbc.selectList(sql, param);
 	}
-	
+
+	public List<Map<String, Object>> orderListAdmin(){
+		String sql = "SELECT od_dt.OD_NUM, prod.PROD_NAME, od_dt.od_count, prod.prod_price, od.OD_DATE"
+				+ " FROM tab_branch brc, tab_order od, tab_order_detail od_dt, tab_product prod"
+				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = od_dt.od_num AND od_dt.prod_num = prod.prod_num"
+				+ " ORDER BY od_dt.OD_NUM DESC";
+
+		return jdbc.selectList(sql);
+	}
 }

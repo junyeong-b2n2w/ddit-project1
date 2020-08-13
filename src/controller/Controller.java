@@ -23,7 +23,7 @@ public class Controller {
 	private OrderService orderService = OrderService.getInstance();
 	private CartService cartService = CartService.getInstance();
 	private MyPageAdminService myPageAdminService = MyPageAdminService.getInstance();
-
+	private OrderViewService orderViewService = OrderViewService.getInstance();
 
 	private void start() {
 		
@@ -45,8 +45,9 @@ public class Controller {
 				case View.WH_CONTROL: view = myPageAdminService.myPageAdminWhControl(); break;
 				case View.PROD_CONTROL: view = myPageAdminService.myPageAdminProdControl(); break;
 				case View.WH_STOCK: view = myPageAdminService.myPageAdminWhStockControl(); break;
+				case View.ORDER_CONTROL: view = myPageAdminService.myPageAdminOrderControl(); break;
 
-
+				case View.ORDER_VIEW_ADMIN: view = orderViewService.orderViewAdmin(); break;
 
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
 				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;

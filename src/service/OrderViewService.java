@@ -69,5 +69,20 @@ public class OrderViewService {
 		}
 		return View.ORDER_MAIN_VIEW;
 	}
-	
+
+	public int orderViewAdmin(){
+		System.out.println("================================주문내역================================");
+		System.out.println("주문번호\t제품이름\t\t\t\t\t주문개수\t제품 가격(단가)\t주문 날짜");
+		System.out.println("======================================================================");
+		List<Map<String, Object>> orderList = orderViewDao.orderListAdmin();
+		Object line = "0";
+		for(Map<String, Object> orders: orderList){
+			if (!line.equals(orders.get("OD_NUM"))){
+				System.out.println("----------------------------------------------------------------------");
+				line = orders.get("OD_NUM");
+			}
+			System.out.println("  " + orders.get("OD_NUM") +"\t" + orders.get("PROD_NAME") +"\t\t\t" + orders.get("OD_COUNT") + "\t" +orders.get("OD_DATE"));
+		}
+		return View.ORDER_MAIN_VIEW;
+	}
 }

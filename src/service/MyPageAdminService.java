@@ -80,7 +80,8 @@ public class MyPageAdminService {
 		System.out.println("3. 창고관리");
 		System.out.println("4. 품목관리");
 		System.out.println("5. 재고관리");
-		System.out.println("6. 주문배송관리------" );
+		System.out.println("6. 주문배송관리");
+		System.out.println("7. 주문조회");
 		System.out.println("0. 이전화면");
 		System.out.println("======================================");
 		System.out.print("입력  > ");
@@ -98,6 +99,10 @@ public class MyPageAdminService {
 			return View.PROD_CONTROL;
 		case 5: 
 			return View.WH_STOCK;
+
+		case 7:
+			return View.ORDER_VIEW_ADMIN;
+
 		case 0:
 			return View.BOARD_LIST;
 		}
@@ -423,6 +428,11 @@ public class MyPageAdminService {
 
 
 		}
+		return View.BOARD_LIST;
+	}
+
+	public int myPageAdminOrderControl(){
+
 		return View.BOARD_LIST;
 	}
 
