@@ -425,30 +425,7 @@ public class MyPageAdminService {
 		return View.BOARD_LIST;
 	}
 
-	//유저화면
-	public int myPageCommonHome() {
-		System.out.println("======================================");
-		System.out.println("회원 페이지");
-		System.out.println("======================================");
-		System.out.print("입력 > ");
-		
-		int input = ScanUtil.nextInt();
-		
-		switch (input) {
-		case 1:
-			return View.MEM_CONTROL;
-		case 2: 
-			return View.BRANCH_CONTROL;
-		case 3: 
-			return View.WH_CONTROL;
-		case 4: 
-			return View.PROD_CONTROL;
-		case 0:
-			
-		}
-		
-		return View.BOARD_LIST;
-	}
+
 
 
 }

@@ -47,13 +47,10 @@ public int orderMainView(){
 		return orderSearch(cate, search);
 
 	case 2:
-		cartService.cartAdd();
+		return View.CART_ADD;
 		
-		return View.ORDER_MAIN_VIEW;
 	case 3:
-		cartService.cartMain();
-		
-		return View.ORDER_MAIN_VIEW;
+		return View.CART_MAIN_VIEW;
 	case 0: return View.BOARD_LIST;
 		
 		

@@ -20,4 +20,7 @@ public class View {
 
 	public static final int ORDER_MAIN_VIEW = 101;
 	public static final int CART_MAIN_VIEW = 201;
+	public static final int CART_VIEW = 202;
+	public static final int CART_EDIT = 203;
+	public static final int CART_ADD = 204;
 }

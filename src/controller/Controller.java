@@ -45,11 +45,15 @@ public class Controller {
 				case View.WH_CONTROL: view = myPageAdminService.myPageAdminWhControl(); break;
 				case View.PROD_CONTROL: view = myPageAdminService.myPageAdminProdControl(); break;
 				case View.WH_STOCK: view = myPageAdminService.myPageAdminWhStockControl(); break;
-				case View.MY_PAGE_COMMON: view = myPageAdminService.myPageCommonHome(); break;
+
 
 
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
 				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;
+				case View.CART_ADD:  view = cartService.cartAdd(); break;
+//				case View.CART_VIEW:  view = cartService.cartView(); break;
+//				case View.CART_EDIT:  view = cartService.cartEdit(); break;
+				
 
 			default:
 				break;

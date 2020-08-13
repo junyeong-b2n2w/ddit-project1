@@ -108,6 +108,7 @@ public class UserService {
 		
 		if(0<result){
 			System.out.println("회원가입 성공");
+			System.out.println("마이페이지에서 지점정보를 수정해 주세요");
 			userDao.createBranch(userId);
 		}else{
 			System.out.println("회원가입 실패");

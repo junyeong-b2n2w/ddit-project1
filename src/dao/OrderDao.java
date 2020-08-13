@@ -47,7 +47,7 @@ public class OrderDao {
 			else if (cate == 2) {param.add("부가기재");}
 			
 			
-			
+	
 			sql = cate != 0 ? sql + " WHERE tab_product.prod_ctegory = ?" : sql + " WHERE tab_product.prod_ctegory IS NOT NULL";
 //			sql = cate != 0 ? sql + " WHERE b.prod_ctegory = ?" : sql + " WHERE b.prod_ctegory IS NOT NULL";
 			

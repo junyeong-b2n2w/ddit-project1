@@ -46,10 +46,14 @@ public class CartService {
 			cartDelete();
 			return View.CART_MAIN_VIEW;
 		case 3: 
+			if(cart.size() == 0){
+				System.out.println("장바구니가 비었습니다.");
+				return View.CART_MAIN_VIEW;
+			}
 			cartOrder();
-			return View.HOME;
+			return View.ORDER_MAIN_VIEW;
 		case 0:
-			return View.HOME;
+			return View.ORDER_MAIN_VIEW;
 			
 		}
 		
@@ -118,7 +122,7 @@ public class CartService {
 		cart.remove(index);
 	}
 
-	private void cartEdit() {
+	public void cartEdit() {
 		System.out.print("수정할 품목 번호 > ");
 		int selectedItem = ScanUtil.nextInt();
 		System.out.print("수정할 수량  > ");
@@ -130,10 +134,10 @@ public class CartService {
 				item.put("CART_QUNTITY", selectedItemCount);
 			}
 		}
-		
+
 	}
 
-	private void cartView() {
+	public void cartView() {
 		int total = 0;
 		System.out.println("=====장바구니======");
 		System.out.println("품목번호\t품목명\t수량\t개당가격\t총가격" );
@@ -149,14 +153,27 @@ public class CartService {
 				 * Integer.valueOf(String.valueOf(cartItem.get("PROD_PRICE")));
 		}
 		System.out.println("total = " + total);
-		
 	}
 	
 	
-	void cartAdd() {
+	public int cartAdd() {
 		
 		System.out.print("추가할 품목 번호 > ");
 		int selectedItem = ScanUtil.nextInt();
+		
+		List<Map<String, Object>> searchItemList = cartDao.searchStock(Controller.loginUser.get("BRC_NUM"));
+		
+		if (searchItemList.size() == 0 ){
+			System.out.println("본인이 사용하는 창고에 해당 품목이 존재하지 않습니다.");
+			return View.ORDER_MAIN_VIEW;
+		}
+		for(Map<String, Object> item : searchItemList){
+			if(Integer.valueOf(String.valueOf(item.get("PROD_NUM"))) != selectedItem){
+				System.out.println("본인이 사용하는 창고에 해당 품목이 존재하지 않습니다.");
+				return View.ORDER_MAIN_VIEW;
+			}
+		}
+		
 		System.out.print("추가할 수량  > ");
 		int selectedItemCount = ScanUtil.nextInt();
 		
@@ -164,7 +181,22 @@ public class CartService {
 		Map<String, Object> item = cartDao.selectProd(selectedItem);
 		item.put("CART_QUNTITY", selectedItemCount);
 		
+		//
+		if(cart.size() == 0){
+			cart.add(item);
+		}else{
+			for(Map<String, Object> cartItem : cart){
+				if(cartItem.get("PROD_NUM").equals(item.get("PROD_NUM"))){
+					cartItem.put("CART_QUNTITY", Integer.valueOf(String.valueOf(cartItem.get("CART_QUNTITY"))) 
+							+ Integer.valueOf(String.valueOf(item.get("CART_QUNTITY"))));
+				}
+			}
+			
 		cart.add(item);
+			}
+		
+		return View.ORDER_MAIN_VIEW;
+		}
+		
 		
 	}
-}

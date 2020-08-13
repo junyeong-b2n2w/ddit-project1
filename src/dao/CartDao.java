@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import util.JDBCUtil;
@@ -51,6 +52,16 @@ public class CartDao {
 		String sql = "SELECT NVL(MAX(OD_NUM),0) OD_NUM FROM TAB_ORDER";
 	
 	return jdbc.selectOne(sql);
+	}
+
+	public List<Map<String, Object>>  searchStock(Object brc_num) {
+		String sql = "SELECT PROD_NUM FROM TAB_WH_STOCK "
+				+ " WHERE WH_NUM = (SELECT BRC_WH_NUM FROM TAB_BRANCH WHERE BRC_NUM = ?)";
+		
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(brc_num);
+		
+		return jdbc.selectList(sql,param);
 	}
 	
 	
