@@ -2,7 +2,7 @@ package util;
 
 public class View {
 
-	//로그인, 유저
+	//로그인, 유저 테스트
 	public static final int HOME = 0;
 	public static final int LOGIN = 1;
 	public static final int JOIN = 2;
