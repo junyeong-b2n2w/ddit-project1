@@ -83,7 +83,7 @@ public class MyPageAdminService {
 		System.out.println("6. 주문배송관리");
 		System.out.println("7. 주문조회");
 		System.out.println("0. 이전화면");
-		System.out.println("======================123================");
+		System.out.println("======================================");
 		System.out.print("입력  > ");
 
 		int input = ScanUtil.nextInt();
