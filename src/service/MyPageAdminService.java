@@ -237,11 +237,12 @@ public class MyPageAdminService {
 	public int myPageAdminWhControl() {
 		List<Map<String , Object>> whList = myPageAdminDao.selectWhList();
 		System.out.println("=================== 창 고 목 록 ===================");
+		
 		System.out.println("창고번호\t창고주소\t창고사용여부");
 		for(Map<String, Object> wh : whList){
 			System.out.println(wh.get("WH_NUM") + "\t"
 					+ wh.get("WH_ADRESS") + "\t"
-					+ (String.valueOf(wh.get("WH_USE")).equals("1") ? "사용" : "X"));
+					+ (Integer.valueOf(String.valueOf(wh.get("WH_USE"))) == 1 ? "사용" : "X"));
 		}
 		System.out.println("================================================");
 		System.out.println("1.창고 추가\t2.창고 삭제\t3.정보수정\t0.이전 페이지");

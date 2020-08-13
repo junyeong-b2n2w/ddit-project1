@@ -29,7 +29,7 @@ public class MyPageDao {
 	}
 	
 	public Map<String, Object> selectMyPage(Object mem_num){
-		String sql = "SELECT brc_wh_num, brc_num, brc_name, brc_address, brc_email, brc_phone, brc_credit"
+		String sql = "SELECT brc_wh_num, brc_num, brc_name, brc_address, brc_email, brc_phone, brc_credit, brc_wh_num"
 				+ " FROM tab_branch"
 				+ " WHERE brc_mem_num = ?";
 		
@@ -59,6 +59,9 @@ public class MyPageDao {
 					+ " WHERE BRC_NUM = ?";
 		} else if(col.equals("BRC_CREDIT")){
 			sql = "UPDATE TAB_BRANCH SET BRC_CREDIT = ?"
+					+ " WHERE BRC_NUM = ?";
+		} else if(col.equals("BRC_WH_NUM")){
+			sql = "UPDATE TAB_BRANCH SET BRC_WH_NUM = ?"
 					+ " WHERE BRC_NUM = ?";
 		}
 		return jdbc.update(sql, param);
