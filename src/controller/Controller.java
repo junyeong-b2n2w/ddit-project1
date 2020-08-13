@@ -26,7 +26,7 @@ public class Controller {
 	private OrderViewService orderViewService = OrderViewService.getInstance();
 
 	private void start() {
-		
+		//test
 		int view = View.HOME;
 		
 		while(true){
