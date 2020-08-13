@@ -35,7 +35,7 @@ public class OrderService {
 public int orderMainView(){
 	
 	System.out.println("==============주문 페이지=============");
-	System.out.println("==============주문 페이지=============");
+
 	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인\t4.주문내역 확인\t0.돌아가기");
 	System.out.print("입력 > ");
 	int input = ScanUtil.nextInt();
