@@ -24,7 +24,6 @@ public class Controller {
 	private CartService cartService = CartService.getInstance();
 	private MyPageAdminService myPageAdminService = MyPageAdminService.getInstance();
 	private OrderViewService orderViewService = OrderViewService.getInstance();
-
 	private void start() {
 		//test
 		int view = View.HOME;
