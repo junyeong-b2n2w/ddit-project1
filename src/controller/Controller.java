@@ -24,9 +24,10 @@ public class Controller {
 	private CartService cartService = CartService.getInstance();
 	private MyPageAdminService myPageAdminService = MyPageAdminService.getInstance();
 	private OrderViewService orderViewService = OrderViewService.getInstance();
+	private GraphService graphService = GraphService.getInstance();
 
 	private void start() {
-		//test
+		
 		int view = View.HOME;
 		
 		while(true){
@@ -34,12 +35,15 @@ public class Controller {
 				case View.HOME: view = home(); break;
 				case View.LOGIN: view = userService.login(); break;
 				case View.JOIN: view = userService.join(); break;
+				
 				case View.BOARD_LIST:  view = boardService.boardList(); break;
 				case View.BOARD_VIEW:  view = boardService.boardView(boardService.selectedBoardNo); break;
 				case View.BOARD_INSERT_FORM:  view = boardService.postInsert(); break;
 				case View.POST_VIEW:  view = boardService.postView(boardService.selectedPostNo); break;
+				
 				case View.MY_PAGE_USER: view = myPageService.myPageUser(); break;
 				case View.MY_PAGE_ADMIN: view = myPageAdminService.myPageAdminHome(); break;
+				
 				case View.MEM_CONTROL: view = myPageAdminService.myPageAdminMemControl(); break;
 				case View.BRANCH_CONTROL: view = myPageAdminService.myPageAdminBranchControl(); break;
 				case View.WH_CONTROL: view = myPageAdminService.myPageAdminWhControl(); break;
@@ -52,6 +56,11 @@ public class Controller {
 				case View.ORDER_MAIN_VIEW:  view = orderService.orderMainView(); break;
 				case View.CART_MAIN_VIEW:  view = cartService.cartMain(); break;
 				case View.CART_ADD:  view = cartService.cartAdd(); break;
+				
+				//그래프
+				case View.GRAPH: view = graphService.graphHome(); break;
+				
+				
 //				case View.CART_VIEW:  view = cartService.cartView(); break;
 //				case View.CART_EDIT:  view = cartService.cartEdit(); break;
 				

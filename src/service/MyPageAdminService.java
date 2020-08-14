@@ -82,6 +82,7 @@ public class MyPageAdminService {
 		System.out.println("5. 재고관리");
 		System.out.println("6. 주문배송관리");
 		System.out.println("7. 주문조회");
+		System.out.println("8. 통계데이터조회");
 		System.out.println("0. 이전화면");
 		System.out.println("======================================");
 		System.out.print("입력  > ");
@@ -99,10 +100,10 @@ public class MyPageAdminService {
 			return View.PROD_CONTROL;
 		case 5: 
 			return View.WH_STOCK;
-
 		case 7:
 			return View.ORDER_VIEW_ADMIN;
-
+		case 8:
+			return View.GRAPH;	
 		case 0:
 			return View.BOARD_LIST;
 		}
@@ -114,6 +115,8 @@ public class MyPageAdminService {
 	//회원관리
 	public int myPageAdminMemControl() {
 		List<Map<String , Object>> memberList = myPageAdminDao.selectMemberList();
+		
+		
 		System.out.println("================회 원 목 록===================");
 		System.out.println("회원이름\t회원아이디\t\t가입일자\t\t권한");
 		for(Map<String, Object> member : memberList){

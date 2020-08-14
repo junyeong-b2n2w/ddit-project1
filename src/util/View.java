@@ -16,6 +16,7 @@ public class View {
 	public static final int WH_CONTROL = 11;
 	public static final int PROD_CONTROL = 12;
 	public static final int WH_STOCK = 13;
+	public static final int GRAPH = 15;
 
 	public static final int ORDER_VIEW_ADMIN= 14;
 	public static final int MY_PAGE_USER= 50;

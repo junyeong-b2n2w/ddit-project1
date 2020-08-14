@@ -51,7 +51,7 @@ public class OrderDao {
 			sql = cate != 0 ? sql + " WHERE tab_product.prod_ctegory = ?" : sql + " WHERE tab_product.prod_ctegory IS NOT NULL";
 //			sql = cate != 0 ? sql + " WHERE b.prod_ctegory = ?" : sql + " WHERE b.prod_ctegory IS NOT NULL";
 			
-			if (!search.equals("0")){
+			if (!search.equals("0")){                 
 				sql = sql + " AND tab_product.prod_NAME LIKE '%'||?||'%'";
 				param.add(search);
 			}
