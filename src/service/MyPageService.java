@@ -31,14 +31,16 @@ public class MyPageService {
 		System.out.println(Controller.loginUser.get("MEM_NUM"));
 		Map<String, Object> myBranch = myPageDao.selectMyPage(Controller.loginUser.get("MEM_NUM"));
 		
-		System.out.println("==============마이페이지==============");
-		System.out.println(myBranch.get("BRC_NAME") + "\t지점번호    " + myBranch.get("BRC_NUM"));
-		System.out.println("주소\t" + myBranch.get("BRC_ADDRESS"));
-		System.out.println("전화번호\t" + myBranch.get("BRC_PHONE") + "\t이메일\t" + myBranch.get("BRC_EMAIL"));
-		System.out.println("예치금\t" + myBranch.get("BRC_CREDIT") + "\t창고번호\t" + myBranch.get("BRC_WH_NUM"));
-		System.out.println("===================================");
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                      마이 페이지                               ┃ ");
+		System.out.printf("┃  지 점 명 :%-17.17s 지점번호 :%-17.17s        ┃\n", myBranch.get("BRC_NAME") ,myBranch.get("BRC_NUM"));
+		System.out.printf("┃  지점주소 :%-45.45s      ┃\n", myBranch.get("BRC_ADDRESS") );
+		System.out.printf("┃  전화번호 :%-17.17s 이 메 일 :%-17.17s        ┃\n", myBranch.get("BRC_PHONE") ,myBranch.get("BRC_EMAIL"));
+		System.out.printf("┃  창고번호 :%-17.17s 예 치 금 :₩%-16.16s        ┃\n", myBranch.get("BRC_WH_NUM") ,myBranch.get("BRC_CREDIT"));
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.지점 정보 수정\t2.예치금 추가\t0.돌아가기..");
-		
+		System.out.print("입력 > ");
 		int input = ScanUtil.nextInt();
 		switch(input){
 		case 1:

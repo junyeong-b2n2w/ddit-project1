@@ -5,6 +5,7 @@ import java.util.Map;
 
 import controller.Controller;
 import dao.MyPageAdminDao;
+import util.DateFormatUtil;
 import util.ScanUtil;
 import util.View;
 
@@ -73,18 +74,21 @@ public class MyPageAdminService {
 	//관리자화면	
 	public static int myPageAdminHome(){
 
-		System.out.println("======================================");
-		System.out.println("관리자 페이지");
-		System.out.println("1. 회원관리");
-		System.out.println("2. 지점관리");
-		System.out.println("3. 창고관리");
-		System.out.println("4. 품목관리");
-		System.out.println("5. 재고관리");
-		System.out.println("6. 주문배송관리");
-		System.out.println("7. 주문조회");
-		System.out.println("8. 통계데이터조회");
-		System.out.println("0. 이전화면");
-		System.out.println("======================================");
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃            관리자 페이지            ┃");
+		System.out.println("┃                                  ┃");
+		System.out.println("┃          1. 회원관리               ┃");
+		System.out.println("┃          2. 지점관리               ┃");
+		System.out.println("┃          3. 창고관리               ┃");
+		System.out.println("┃          4. 품목관리               ┃");
+		System.out.println("┃          5. 재고관리               ┃");
+		System.out.println("┃          6. 주문배송관리            ┃");
+		System.out.println("┃          7. 주문조회               ┃");
+		System.out.println("┃          8. 통계조회               ┃");
+		System.out.println("┃          0. 이전화면               ┃");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
 		System.out.print("입력  > ");
 
 		int input = ScanUtil.nextInt();
@@ -115,17 +119,20 @@ public class MyPageAdminService {
 	//회원관리
 	public int myPageAdminMemControl() {
 		List<Map<String , Object>> memberList = myPageAdminDao.selectMemberList();
-		
-		
-		System.out.println("================회 원 목 록===================");
-		System.out.println("회원이름\t회원아이디\t\t가입일자\t\t권한");
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                         회 원 목 록                            ┃ ");
+		System.out.println("┠─────────────────────────────────────────────────────────────┨ ");
+		System.out.printf("┃    %-8.8s  %-15.15s %-16.16s %-4.4s   ┃\n","회원이름","회원아이디","가입일자","권한");
+
 		for(Map<String, Object> member : memberList){
-			System.out.println(member.get("MEM_NAME") + "\t"
-					+ member.get("MEM_ID") + "\t"
-					+ member.get("MEM_REGDATE") + "\t"
-					+ (member.get("MEM_PERMISSION").equals("1") ? "관리자" : "지점"));
+			System.out.printf("┃    %-8.8s   %-15.15s   %-16.16s   %-4.4s   ┃\n",
+					member.get("MEM_NAME"),member.get("MEM_ID"),
+					DateFormatUtil.SimpleDateFormat(member.get("MEM_REGDATE")),
+					member.get("MEM_PERMISSION").equals("1") ? "관리자" : "지점"
+			);
 		}
-		System.out.println("===========================================");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.회원 권한 수정\t0.이전 페이지");
 		System.out.print("입력 > ");
 		
@@ -152,15 +159,21 @@ public class MyPageAdminService {
 	public int myPageAdminBranchControl() {
 		
 		List<Map<String , Object>> brcArticle = myPageAdminDao.selectBrcList();
-		
-		System.out.println("====================지 점 목 록==================");
-		System.out.println("지점번호\t지점명");
-		
+
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                         지 점 목 록                           ┃ ");
+		System.out.println("┠─────────────────────────────────────────────────────────────┨ ");
+		System.out.println("┃         지점번호             지점명                             ┃");
 		for(Map<String, Object> branch : brcArticle){
-			System.out.println(branch.get("BRC_NUM") + "\t"
-					+ branch.get("BRC_NAME"));
+		System.out.printf("┃         %-8.8s      %-15.15s                     ┃\n",
+				branch.get("BRC_NUM"),branch.get("BRC_NAME")
+		);
+
+
+
 		}
-		System.out.println("===============================================");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.지점조회\t2.지점추가\t3.지점삭제\t0.이전 페이지");
 		System.out.print("입력 > ");
 		
@@ -173,7 +186,7 @@ public class MyPageAdminService {
 			List<Map<String , Object>> brcInfo = myPageAdminDao.selectBrcInfo(selectBranchNum);
 			
 			for(Map<String, Object> branchNum : brcInfo){
-				System.out.println("=================지 점 정 보====================");
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━ 지 점 정 보 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 				System.out.println("지점번호\t :" + branchNum.get("BRC_NUM"));
 				System.out.println("지점명\t :" + branchNum.get("BRC_NAME"));
 				System.out.println("지점장\t :" + branchNum.get("MEM_NAME"));
@@ -181,7 +194,7 @@ public class MyPageAdminService {
 				System.out.println("이메일\t :" + branchNum.get("BRC_EMAIL"));
 				System.out.println("전화번호\t :" + branchNum.get("BRC_PHONE"));
 				System.out.println("예치금\t :" + branchNum.get("BRC_CREDIT"));
-				System.out.println("===============================================");
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 				 
 			}
 			System.out.println("1.정보수정 0.이전 페이지");
@@ -244,15 +257,16 @@ public class MyPageAdminService {
 	//창고관리
 	public int myPageAdminWhControl() {
 		List<Map<String , Object>> whList = myPageAdminDao.selectWhList();
-		System.out.println("=================== 창 고 목 록 ===================");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━ 창 고 목 록 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		
-		System.out.println("창고번호\t창고주소\t창고사용여부");
+		System.out.printf(" %-5.5s    %-20.20s    %-5.5s\n","창고번호","창고주소","창고사용여부\n");
 		for(Map<String, Object> wh : whList){
-			System.out.println(wh.get("WH_NUM") + "\t"
-					+ wh.get("WH_ADRESS") + "\t"
-					+ (Integer.valueOf(String.valueOf(wh.get("WH_USE"))) == 1 ? "사용" : "X"));
+			System.out.printf(" %-5.5s    %-20.20s    %-5.5s \n" ,
+					wh.get("WH_NUM") ,
+					 wh.get("WH_ADRESS"),
+					Integer.valueOf(String.valueOf(wh.get("WH_USE"))) == 1 ? "사용" : "X");
 		}
-		System.out.println("================================================");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		System.out.println("1.창고 추가\t2.창고 삭제\t3.정보수정\t0.이전 페이지");
 		System.out.print("입력 > ");
 		
