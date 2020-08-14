@@ -8,145 +8,91 @@ import util.ScanUtil;
 import util.View;
 
 public class GraphService {
-	
+
 	//싱글톤 패턴 
-		private static GraphService instance;
-		private GraphService(){}
-		
-		public static GraphService  getInstance() {
-			if(instance == null){
-				instance = new GraphService();
-			}
-			return instance;
+	private static GraphService instance;
+
+	private GraphService() {
+	}
+
+	public static GraphService getInstance() {
+		if (instance == null) {
+			instance = new GraphService();
 		}
-		
-		//--------
-		
-		private GraphDao graphDao = GraphDao.getInstance();
-		
-		
-		
-		
-		//그래프 메인화면 
-		public int graphHome() {
-			List<Map<String , Object>> braList = graphDao.selectBrcList();
-			
-			System.out.println("================= 보유 지점 =================");						
-			for(Map<String, Object> brc : braList){
-				System.out.println("[ 지점번호: " + brc.get("BRC_NUM") + " / "
-						+ brc.get("BRC_NAME") + " 지점 ]");
-			}
-			System.out.println("=======================================================");
-			System.out.println("1.지점별 통계조회\t0.이전 페이지");
-			System.out.print("> ");
-			
-			int input = 0;
-			input = ScanUtil.nextInt();
-			
-			switch (input) {
-			
+		return instance;
+	}
+
+	//--------
+
+	private GraphDao graphDao = GraphDao.getInstance();
+
+
+	//그래프 메인화면
+	public int graphHome() {
+
+		int input = 0;
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃            통계 보기               ┃");
+		System.out.println("┃                                  ┃");
+		System.out.println("┃          1. 통계 검색하기           ┃");
+		System.out.println("┃          0. 돌아가기               ┃");
+		System.out.println("┃                                  ┃");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.print("입력 >");
+		input = ScanUtil.nextInt();
+
+		switch (input){
 			case 1:
-				
-				List<Map<String , Object>> nowMonth = graphDao.selectYearMonth();
-				System.out.println("===================================================");
-				System.out.println("지점이름 / 제품번호 / 카테고리 / 제품이름 / 년월 / 구입수량");
-				for(Map<String, Object> now : nowMonth){
-					System.out.println(now.get("OBRC") + "\t"
-							+ now.get("PNUM") + "\t"
-							+ now.get("CGR") + "\t"
-							+ now.get("PNAME") + "\t"
-							+ now.get("ODATE") + "\t"
-							+ now.get("SUM")
-							);
+				System.out.print("검색할 품목 명을 입력해 주세요 (전체 : 0 ) > ");
+				String prod = ScanUtil.nextLine();
+				System.out.print("검색할 지점 번호를 입력해 주세요 (전체 : 0 ) > ");
+				String branch = ScanUtil.nextLine();
+				System.out.print("검색할 카테고리 번호를 입력해 주세요 (식료품 :1 , 부가기재 :2 전체 : 0 ) > ");
+				String cate = ScanUtil.nextLine();
+
+				System.out.print("검색할 기간의 시작을 입력해 주세요 (전체 : 0  | ex) 200814 ) > ");
+				String startDate = ScanUtil.nextLine();
+				System.out.print("검색할 기간의 마지막을 입력해 주세요 (전체 : 0  | ex) 200814 ) > ");
+				String endDate = ScanUtil.nextLine();
+				System.out.print("정렬 기준을 선택해 주세요 (판매량 내림차순 :1, 판매량 오름차순: 2) > ");
+				String OrderBy = ScanUtil.nextLine();
+
+				// 품목 이름 검
+				//날짜 검색
+				List<Map<String, Object>> searchByProdList = graphDao.searchByProd(prod, branch,cate,startDate, endDate, OrderBy);
+
+
+
+				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+				System.out.printf("┃       품목별 통계 결과 페이지   검색 품목명 : %-10.10s   %-6.6s ~ %-6.6s   %-8.8s %-4.4s   ┃\n",
+						prod.equals("0")? "전체" : prod,startDate.equals("0")? "" : startDate , endDate.equals("0")? "" : endDate
+				, branch.equals("0")? "전제 지점" : branch + "지점", cate.equals("0") ? "": cate.equals("1") ? "식료품" : "부가기재" );
+				System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+				System.out.printf("┃ %-5.5s %-20.20s    %-15.15s   %10.10s  ┃\n","품목번호","품목명","판매량","가격");
+
+
+				for(Map<String, Object> searchedProd : searchByProdList){
+					System.out.printf("┃ %-5.5s %-20.20s    %-15.15s    %10.10s  ┃\n",
+							searchedProd.get("PROD_NUM"), searchedProd.get("PROD_NAME"), searchedProd.get("COUNT"),
+							searchedProd.get("PROD_PRICE") );
+
 				}
-				System.out.println("===================================================");
-				System.out.println("1.더 자세한 통계(카테고리, 이름, 기간)\t0.이전 페이지\"");
-				System.out.print("> ");
-				
-				input = 0;
-				input = ScanUtil.nextInt();
-				
-				String category = "";
-				String pname = "";
-				String startYeatMonth = "";
-				String endYeatMonth = "";
-				
-				switch (input) {
-				
-				case 1:
-					
-					System.out.println("1.제품 카테고리 입력 [YES(1) or NO(2)]");
-					System.out.println("> ");
-					input = 0;
-					input = ScanUtil.nextInt();
-					switch (input) {
-					case 1:
-						System.out.println("조회할 카테고리 입력>");
-					    category = ScanUtil.nextLine();
-					case 2: //
-					}
-					
-					System.out.println("2.제품이름 입력 [YES(1) or NO(2)]");
-					System.out.println("> ");
-					input = 0;
-					input = ScanUtil.nextInt();
-					switch (input) {
-					case 1:
-						System.out.println("조회할 제품이름 입력>");
-					    pname = ScanUtil.nextLine();
-					case 2: //
-					}
-					
-					System.out.println("3.조회기간 입력 [YES(1) or NO(2)]");
-					System.out.println("> ");
-					input = 0;
-					input = ScanUtil.nextInt();
-					switch (input) {
-					case 1:
-						System.out.println("조회할 조회할 첫달(yy-mm)");
-						System.out.println("> ");
-					    startYeatMonth = ScanUtil.nextLine();
-						
-						System.out.println("조회할 조회할 마지막달(yy-mm)");
-						System.out.println("> ");
-					    endYeatMonth = ScanUtil.nextLine();
-					
-					case 2: //
-						
-					}
-					
-					List<Map<String , Object>> deepSelect = graphDao.selectDeep(category, pname, startYeatMonth, endYeatMonth);
-					System.out.println("===================================================");
-					System.out.println("지점이름 / 제품번호 / 카테고리 / 제품이름 / 년월 / 구입수량");
-					for(Map<String, Object> deep : deepSelect){
-						System.out.println(deep.get("OBRC") + "\t"
-								+ deep.get("PNUM") + "\t"
-								+ deep.get("CGR") + "\t"
-								+ deep.get("PNAME") + "\t"
-								+ deep.get("ODATE") + "\t"
-								+ deep.get("SUM")
-								);
-					}
-					System.out.println("===================================================");
-					
-					return View.GRAPH;
-					
-				case 0:
-				
+				System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
+
 				return View.GRAPH;
-					
-				}
-				
-				
-				
-				
-			} //스위치
-			
-			
-			return View.GRAPH;
+
+			case 0:
+
+				return View.MY_PAGE_ADMIN;
+
 		}
-		
-		
-		
-		
+
+
+		return View.MY_PAGE_ADMIN;
+	}
+
+
 }

@@ -40,7 +40,6 @@ public class BoardService {
 
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃                                                             ┃ ");
 		System.out.printf("┃        %-32.32s                 ┃\n","게시판 번호    게시판 이름");
 		System.out.println("┠─────────────────────────────────────────────────────────────┨ ");
 

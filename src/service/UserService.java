@@ -167,7 +167,7 @@ public class UserService {
 		
 			return View.BOARD_LIST;
 		}
-		return View.LOGIN;
+		return View.HOME;
 		
 	}
 }
