@@ -78,14 +78,17 @@ public class Controller {
 
 	private int home() {
 		
-		System.out.println("-------------------------------------------------");
-		System.out.println("대덕 1차 프로젝트 테스트");
-		System.out.println("-------------------------------------------------");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                                                             ┃ ");
+		System.out.println("┃                                                             ┃ ");
+		System.out.println("┃                 \"민규네 치킨\"  물류 주문 시스템                    ┃ ");
+		System.out.println("┃                                                             ┃ ");
+		System.out.println("┃               예상치 못한 코로나에 힘드신 점주님들 힘내세요!            ┃ ");
+		System.out.println("┃                                                             ┃ ");
+		System.out.println("┃                                                             ┃ ");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.로그인\t\t2.회원가입\t\t0.프로그램 종료");
-		System.out.println("-------------------------------------------------");
 		System.out.print("번호입력 > ");
-		
-		
 		int input = ScanUtil.nextInt();
 		
 		switch (input) {

@@ -1,11 +1,13 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
 import dao.BoardDao;
+import util.DateFormatUtil;
 import util.ScanUtil;
 import util.View;
 
@@ -34,17 +36,20 @@ public class BoardService {
 	public int boardList(){
 		
 		List<Map<String , Object>> boardList = boardDao.selectBoardList();
-		
 
-		System.out.println("======================================");
-		System.out.println("번호\t게시판이름");
-		System.out.println("--------------------------------------");
-		
-		for(Map<String, Object> board : boardList){
-			System.out.println(board.get("BOARD_NUM") + "\t"
-					+ board.get("BOARD_NAME"));
-		}
-		System.out.println("======================================");
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                                                             ┃ ");
+		System.out.printf("┃        %-32.32s                 ┃\n","게시판 번호    게시판 이름");
+		System.out.println("┠─────────────────────────────────────────────────────────────┨ ");
+
+		//			System.out.println(board.get("BOARD_NUM") + "\t"
+		//					+ board.get("BOARD_NAME"));
+		for(Map<String, Object> board : boardList)
+			System.out.printf("┃           %d\t\t %-20.20s                    ┃\n",
+					Integer.valueOf(String.valueOf(board.get("BOARD_NUM"))),
+					String.valueOf(board.get("BOARD_NAME")));
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.게시판 선택\t2.마이페이지\t3.주문테스트\t0.로그아웃");
 		System.out.print("입력 > ");
 		
@@ -76,17 +81,20 @@ public class BoardService {
 	public int boardView(int board_num) {
 		
 		List<Map<String, Object>> boardArticle = boardDao.selectBoard(board_num);
-		
-		System.out.println("======================================");
-		System.out.println("번호\t 제목\t 작성자\t작성일");
+
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.printf("┃ %-6.6s%-48.48s%-16.16s%16.16s    ┃\n", "번호","제목","작성자","작성일");
+		System.out.println("┠──────────────────────────────────────────────────────────────────────────────────────┨ ");
 		for(Map<String, Object> post : boardArticle){
-			System.out.print(post.get("POST_PAR_NUM") == null ? "" : "▷" );
-			System.out.println(post.get("POST_NUM") + "\t"
-					+ post.get("POST_TITLE") + "\t"
-					+ post.get("MEM_NAME") + "\t"
-					+ post.get("POST_DATE"));
+			System.out.printf("%-4.4s",post.get("POST_PAR_NUM") == null ? "┃ " : "┃ └>" );
+
+			System.out.printf("%-4.4s",post.get("POST_NUM"));
+			System.out.printf("%-48.48s",post.get("POST_TITLE"));
+			System.out.printf("%-16.16s",post.get("MEM_NAME"));
+			System.out.printf("%-16.16s  ┃\n",DateFormatUtil.SimpleDateFormat(post.get("POST_DATE")));
+
 		}
-		System.out.println("======================================");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.조회\t2.글작성\t0.게시판목록 보기");
 		System.out.print("입력 > ");
 		
@@ -128,23 +136,31 @@ public class BoardService {
 		Map<String, Object> postArticle = boardDao.postSelect(selectedPostNo);
 
 		List<Map<String, Object>> comment = boardDao.commentList(selectedPostNo);
-		System.out.println("======================================");
-		System.out.println("글 번호\t :" + postArticle.get("POST_NUM"));
-		System.out.println("글 제목\t :" + postArticle.get("POST_TITLE"));
-		System.out.println("작성자\t :" + postArticle.get("MEM_NAME"));
-		System.out.println("작성일\t :" + postArticle.get("POST_DATE"));
-		System.out.println("조회수\t :" + postArticle.get("POST_VIEW"));
-		System.out.println("--------------------------------------");
-		System.out.println(postArticle.get("POST_CONTENT"));
-		System.out.println("================댓글===================");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.printf("┃ 글 번호\t : %-54.54s  ┃\n", postArticle.get("POST_NUM"));
+		System.out.printf("┃ 글 제목\t : %-54.54s  ┃\n", postArticle.get("POST_TITLE"));
+		System.out.printf("┃ 작성자 \t : %-54.54s  ┃\n", postArticle.get("MEM_NAME"));
+		System.out.printf("┃ 작성일 \t : %-54.54s  ┃\n", DateFormatUtil.SimpleDateFormat(postArticle.get("POST_DATE")));
+		System.out.printf("┃ 조회수 \t : %-54.54s  ┃\n", postArticle.get("POST_VIEW"));
+		System.out.println("┠━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┨");
+		System.out.printf("┃ %-60.60s ┃\n", postArticle.get("POST_CONTENT"));
+
+		System.out.println("┠━━━━━━━━━━━━━━━━━━━━━━━━━ 댓 글 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┨");
+
 
 		for(Map<String, Object> com : comment) {
-			System.out.print(com.get("COM_PAR_NUM") == null ? "" : "▷" );
-			System.out.println(com.get("COM_NUM") + "\t"
-			+ com.get("MEM_NAME") + "\t"
-			+ com.get("COM_CONTENT") );
+
+			System.out.printf("%-4.4s",com.get("COM_PAR_NUM") == null ? "┃ " : "┃ └>" );
+
+			System.out.printf("%-4.4s",com.get("COM_NUM"));
+			System.out.printf("%-16.16s",com.get("MEM_NAME"));
+			System.out.printf("%-42.42s ┃\n",com.get("COM_CONTENT"));
+
+
+
 		}
-		System.out.println("======================================");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+
 
 		System.out.println("1.수정\t2.삭제\t3.댓글\t0.게시글목록 보기");
 		System.out.print("입력 > ");

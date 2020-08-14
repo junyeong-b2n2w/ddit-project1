@@ -33,9 +33,9 @@ public class OrderService {
 	
 	
 public int orderMainView(){
-	
-	System.out.println("==============주문 페이지=============");
-
+	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+	System.out.println("┃                      주문 페이지                               ┃ ");
+	System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 	System.out.println("1. 검색\t2.장바구니 추가\t3.장바구니 확인\t4.주문내역 확인\t0.돌아가기");
 	System.out.print("입력 > ");
 	int input = ScanUtil.nextInt();
@@ -79,18 +79,21 @@ private int orderSearch(int cate, String search) {
 	Object wh_num = orderDao.checkCredit(Controller.loginUser.get("BRC_NUM")).get("BRC_WH_NUM");
 	
 	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, wh_num);
-	System.out.println("==========검색결과===============");
-	System.out.println("품목번호\t품목명\t설명\t가격\t재고\t카테고리");
+
+	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+	System.out.printf("┃       검색 결과 페이지   카테고리 :%-20.20s  검색어 : %-20.20s  ┃\n", cate == 0 ? "전체": cate == 1 ? "식료품" : "부가기재" , search.equals("0") ? "전체" : search);
+	System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+	System.out.printf("┃ %-5.5s %-20.20s    %-15.15s   %10.10s %5.5s %8.8s ┃\n","품목번호","품목명","설명","가격","재고","카테고리");
+
+
 	for(Map<String, Object> prod : items){
-		System.out.println(prod.get("PROD_NUM") + "\t"
-				+ prod.get("PROD_NAME") + "\t"
-				+ prod.get("PROD_TEXT") + "\t"
-				+ prod.get("PROD_PRICE") + "\t"
-				+ prod.get("STOCK_COUNT") + "\t"
-				+ prod.get("PROD_CTEGORY")
-				);
+		System.out.printf("┃ %-5.5s %-20.20s    %-15.15s    %10.10s %5.5s %8.8s ┃\n",
+				prod.get("PROD_NUM"), prod.get("PROD_NAME"), prod.get("PROD_TEXT"),
+				prod.get("PROD_PRICE") , prod.get("STOCK_COUNT"), prod.get("PROD_CTEGORY"));
+
 	}
-	
+	System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 	
 	
 	return View.ORDER_MAIN_VIEW;
