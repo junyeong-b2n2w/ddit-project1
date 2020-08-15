@@ -154,10 +154,25 @@ public class MyPageAdminDao {
 
     }
 
-    public List<Map<String, Object>> selectProdList() {
-        String sql = "SELECT * FROM tab_product";
+    public List<Map<String, Object>> selectProdList(String name, int cate) {
+        String sql = "SELECT * FROM tab_product WHERE 1=1";
 
-        return jdbc.selectList(sql);
+        ArrayList<Object> param = new ArrayList<>();
+
+        if(!name.equals("0")){
+            sql = sql+ " AND PROD_NAME LIKE '%'||?||'%'";
+            param.add(name);
+        }
+
+        if(cate == 1){	param.add("식료품");}
+        else if (cate == 2) {param.add("부가기재");}
+
+
+
+        sql = cate != 0 ? sql + " AND prod_ctegory = ?" : sql + " AND prod_ctegory IS NOT NULL";
+
+        sql = sql + " ORDER BY prod_num";
+        return jdbc.selectList(sql, param);
     }
 
     public int insertProdInfo(int insertProdNum, String insertProdCategory, String insertProdName, String insertProdText, int insertPridPrice) {

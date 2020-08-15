@@ -25,6 +25,7 @@ public class MyPageAdminService {
 	//-------------
 	
 	private MyPageAdminDao myPageAdminDao = MyPageAdminDao.getInstance();
+	private OrderService orderService = OrderService.getInstance();
 	public static String memId = "";
 	public static int insertPermission = 0;
 	
@@ -257,9 +258,10 @@ public class MyPageAdminService {
 	//창고관리
 	public int myPageAdminWhControl() {
 		List<Map<String , Object>> whList = myPageAdminDao.selectWhList();
+
 		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━ 창 고 목 록 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		
-		System.out.printf(" %-5.5s    %-20.20s    %-5.5s\n","창고번호","창고주소","창고사용여부\n");
+		System.out.printf(" %-5.5s    %-20.20s    %-6.6s\n","창고번호","창고주소","창고사용여부\n");
 		for(Map<String, Object> wh : whList){
 			System.out.printf(" %-5.5s    %-20.20s    %-5.5s \n" ,
 					wh.get("WH_NUM") ,
@@ -316,17 +318,9 @@ public class MyPageAdminService {
 	//상품 관리 
 	//품목관리
 	public int myPageAdminProdControl() {
-		List<Map<String , Object>> prodList = myPageAdminDao.selectProdList();
-		System.out.println("========================보 유 중 품 목 - 목 록 =======================");
-		System.out.println("제품번호\t카테고리\t제품명\t제픔설명\t가격       ");		
-		for(Map<String, Object> prod : prodList){
-			System.out.println(prod.get("PROD_NUM") + "\t"
-					+ prod.get("PROD_CTEGORY") + "\t"
-					+ prod.get("PROD_NAME") + "\t"
-					+ prod.get("PROD_TEXT") + "\t"
-					+ prod.get("PROD_PRICE"));
-		}
-		System.out.println("==================================================================");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┃                      품목 관리                                ┃ ");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.제품검색\t2.제품추가\t3.제품삭제\t0.이전 페이지");
 		System.out.print("입력 > ");
 		
@@ -334,7 +328,22 @@ public class MyPageAdminService {
 		
 		switch (input) {
 		case 1:
-			System.out.println("형이한거추가 ");
+			System.out.print("카테고리 입력 (식료품 = 1, 부가기재 = 2, 전체 = 0) > ");
+			int cate = ScanUtil.nextInt();
+			System.out.print("검색어 입력(전체검색 = 0) > ");
+			String name = ScanUtil.nextLine();
+			List<Map<String , Object>> prodList = myPageAdminDao.selectProdList(name , cate);
+			System.out.println("========================보 유 중 품 목 - 목 록 =======================");
+			System.out.println("제품번호\t카테고리\t제품명\t제픔설명\t가격       ");
+			for(Map<String, Object> prod : prodList){
+				System.out.println(prod.get("PROD_NUM") + "\t"
+						+ prod.get("PROD_CTEGORY") + "\t"
+						+ prod.get("PROD_NAME") + "\t"
+						+ prod.get("PROD_TEXT") + "\t"
+						+ prod.get("PROD_PRICE"));
+			}
+			System.out.println("==================================================================");
+
 			return View.PROD_CONTROL;
 		case 2:
 			System.out.println("추가할 제품번호>");

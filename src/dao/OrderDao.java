@@ -59,13 +59,16 @@ public class OrderDao {
 //				sql = sql + " AND b.prod_NAME LIKE '%'||?||'%'";
 //				param.add(search);
 //			}
-			
-			sql = sql + " AND tab_wh_stock.WH_NUM = ? ORDER BY tab_wh_stock.prod_num";
+
+			if (!wh_num.equals("0")){
+				sql = sql + " AND tab_wh_stock.WH_NUM = ?";
+				param.add(wh_num);
+			}
+			sql = sql + " ORDER BY tab_wh_stock.prod_num";
 			
 		
 			
-			param.add(wh_num);
-			
+
 			return jdbc.selectList(sql, param);
 		}
 

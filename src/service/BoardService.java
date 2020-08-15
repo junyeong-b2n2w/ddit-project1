@@ -50,7 +50,8 @@ public class BoardService {
 					Integer.valueOf(String.valueOf(board.get("BOARD_NUM"))),
 					String.valueOf(board.get("BOARD_NAME")));
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-		System.out.println("1.게시판 선택\t2.마이페이지\t3.주문테스트\t0.로그아웃");
+		System.out.println("1.게시판 선택\t2.마이페이지 " +
+				(Controller.loginUser.get("MEM_PERMISSION").equals("1") ? "": "\t3.주문하기") +"\t0.로그아웃");
 		System.out.print("입력 > ");
 		
 		int input = ScanUtil.nextInt();
