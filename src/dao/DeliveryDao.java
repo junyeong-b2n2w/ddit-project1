@@ -36,11 +36,14 @@ public class DeliveryDao {
 		return jdbc.update(sql, param);
 	}
 
-	public Map<String, Object> deliveryView(Object odNum){
-		String sql = "SELECT dv_num, dv_status FROM tab_delivery WHERE OD_num = ?";
+	public Map<String, Object> deliveryView(Object od_Num){
+		String sql = "SELECT dv_num, dv_status, tab_delivery.OD_NUM, OD_DATE" +
+				" FROM tab_delivery , tab_order" +
+				" WHERE TAB_DELIVERY.OD_NUM = tab_order.od_num" +
+				" AND tab_delivery.od_num = ?";
 		
 		List<Object> param = new ArrayList<>();
-		param.add(odNum);
+		param.add(od_Num);
 		
 		return jdbc.selectOne(sql, param);
 	}
@@ -54,11 +57,24 @@ public class DeliveryDao {
 		
 		return jdbc.selectList(sql);
 	}
-	
+
+	public List<Map<String, Object>> deliveryViewBranch(int brc_num){
+//		주문번호\t지점번호\t지점이름\t주문 날짜\t배송 번호\t배송 상태
+		String sql = "SELECT od.od_num, brc.brc_num, brc.brc_name, od.od_date, dv.dv_num, dv.dv_status"
+				+ " FROM tab_delivery dv, tab_branch brc, tab_order od"
+				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = dv.od_num"
+				+ " AND dv_status != '배송 완료'"
+				+ " AND BRC_NUM = ?";
+		List<Object> param = new ArrayList<>();
+		param.add(brc_num);
+		return jdbc.selectList(sql, param);
+	}
+
 	public List<Map<String, Object>> deliveryViewAllAdmin(){
 		String sql = "SELECT od.od_num, brc.brc_num, brc.brc_name, od.od_date, dv.dv_num, dv.dv_status "
 				+ " FROM tab_delivery dv, tab_branch brc, tab_order od"
-				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = dv.od_num";
+				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = dv.od_num"
+				+ " ORDER BY dv.dv_num desc";
 		
 		return jdbc.selectList(sql);
 	}

@@ -78,6 +78,9 @@ public class Controller {
 
 				case View.ORDER_VIEW_ADMIN_MAIN:  view = orderViewService.orderViewAdmin(); break;
 
+				case View.DELIVERY_VIEW_DETAIL_ORDER_LIST:  view = orderViewService.detailOrderList(orderViewService.selectOdNum); break;
+
+				case View.DELIVERY_VIEW_BRANCH:  view = orderViewService.viewBrc(orderViewService.selectBrcNum); break;
 			default:
 				break;
 			}

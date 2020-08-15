@@ -46,4 +46,7 @@ public class View {
 	public static final int DELIVERY_VIEW_ADMIN = 301;
 	// 주문배송 보기
 	public static final int ORDER_VIEW_ADMIN_MAIN= 151;
+
+	public static final int DELIVERY_VIEW_DETAIL_ORDER_LIST = 152;
+	public static final int DELIVERY_VIEW_BRANCH = 153;
 }

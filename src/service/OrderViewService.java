@@ -29,7 +29,8 @@ public class OrderViewService {
     private OrderViewDao orderViewDao = OrderViewDao.getInstance();
     private DeliveryDao deliveryDao = DeliveryDao.getInstance();
     private MyPageDao myPageDao = MyPageDao.getInstance();
-    static int selectOdNum = 0;
+    public static int selectOdNum = 0;
+    public static int selectBrcNum = 0;
 
     //유저
     public int orderViewList() {
@@ -85,7 +86,7 @@ public class OrderViewService {
 
     //관리자
     public int orderViewAdmin() {
-        System.out.println("================================주문내역================================");
+        System.out.println("======================== 배송 완료 되지 않은 주문내역================================");
         System.out.println("배송 번호\t지점번호\t지점이름\t주문 날짜\t\t\t주문번호\t배송 상태");
         System.out.println("======================================================================");
         List<Map<String, Object>> orderListAdmin = deliveryDao.deliveryViewAdmin();
@@ -112,9 +113,12 @@ public class OrderViewService {
                 return orderViewAll();
             case 3:
                 //지점별 조회
-                return viewBrc();
+                System.out.print("조회할 지점의 번호를 입력하세요. > ");
+                selectBrcNum = ScanUtil.nextInt();
+                viewBrc(selectBrcNum);
+                return View.ORDER_VIEW_ADMIN_MAIN;
             case 4:
-                deliveryProd();
+                deliveryProd(0);
                 break;
             case 0:
                 return View.MY_PAGE_ADMIN;
@@ -124,12 +128,12 @@ public class OrderViewService {
 
     //------------------------------------------------------------------------------------------------------
     //case1 상세내역 조회
-    public int detailOrderList(int select) {
+    public int detailOrderList(int dv_num) {
         System.out.println("================================주문내역================================");
         System.out.println("배송 번호\t주문번호\t지점번호\t주문 날짜\t\t\t창고 번호\t배송 상태");//제품번호, 제품이름, 카테고리
         //각 상품 단가, 각 상품 총 가격, 주문 총 가격, 창고번호, 주문 시간
         //지점 번호 누르면 타고 들어가서 지점 정보 조회
-        List<Map<String, Object>> orderList = orderViewDao.dvViewAdmin(select);
+        List<Map<String, Object>> orderList = orderViewDao.dvViewAdmin(dv_num);
 
         int count = 0;
         for (Map<String, Object> orderListAdmin : orderList) {
@@ -153,7 +157,7 @@ public class OrderViewService {
         System.out.println("\t\t\t\t금액 합계\t" + sum);
         System.out.println("======================================================================");
         System.out.println("1.배송 상태 관리\t2.제품 정보 조회\t0.돌아가기");
-        sw();
+        sw(dv_num);
         return View.ORDER_VIEW_ADMIN_MAIN;
     }
 
@@ -190,12 +194,11 @@ public class OrderViewService {
     //------------------------------------------------------------------------------------------------------
     //case 3
 
-    public int viewBrc() {
-        System.out.print("조회할 지점의 번호를 입력하세요. > ");
-        int select = ScanUtil.nextInt();
+    public int viewBrc(int selectBrcNum) {
+
         int count = 0;
 
-        Map<String, Object> brcInfo = myPageDao.selectMyPage(select);
+        Map<String, Object> brcInfo = myPageDao.selectMyPage(selectBrcNum);
         System.out.println("================================지점 정보================================");
         System.out.println("지점번호\t지점 이름");
 
@@ -219,23 +222,31 @@ public class OrderViewService {
 //			return 0;
 //		}
 
+//        System.out.println("================================주문내역================================");
+//        System.out.println("주문번호\t제품번호\t제품이름\t\t\t주문개수\t제품 가격(단가)\t주문 날짜\t배송 번호\t배송 상태");
+//        System.out.println("======================================================================");
+
         System.out.println("================================주문내역================================");
-        System.out.println("주문번호\t제품번호\t제품이름\t\t\t주문개수\t제품 가격(단가)\t주문 날짜\t배송 번호\t배송 상태");
+        System.out.println("배송 번호\t주문 번호 \t주문 날짜\t\t\t배송 상태");
         System.out.println("======================================================================");
 
         Object line = "0";
 
-        List<Map<String, Object>> branchOrderList = orderViewDao.selectBrcNo(select);
+        List<Map<String, Object>> branchOrderList = deliveryDao.deliveryViewBranch(selectBrcNum);
         for (Map<String, Object> orders : branchOrderList) {
             if (!line.equals(orders.get("OD_NUM"))) {
                 System.out.println("----------------------------------------------------------------------");
                 line = orders.get("OD_NUM");
                 Map<String, Object> delivery = deliveryDao.deliveryView(orders.get("OD_NUM"));
 
-                System.out.println("  " + orders.get("OD_NUM") + "\t" + orders.get("PROD_NUM") + "\t" + orders.get("PROD_NAME") + "\t\t\t" + orders.get("OD_COUNT")
-                        + "\t" + orders.get("OD_DATE") + "\t" + delivery.get("DV_NUM") + "\t" + delivery.get("DV_STATUS"));
+                System.out.println(delivery.get("DV_NUM") + "\t" + delivery.get("OD_NUM") + "\t  "
+                         + "\t" + delivery.get("OD_DATE") + "\t"
+                        + "\t" + delivery.get("DV_STATUS"));
+
+//                System.out.println("  " + orders.get("OD_NUM") + "\t" + orders.get("PROD_NUM") + "\t" + orders.get("PROD_NAME") + "\t\t\t" + orders.get("OD_COUNT")
+//                        + "\t" + orders.get("OD_DATE") + "\t" + delivery.get("DV_NUM") + "\t" + delivery.get("DV_STATUS"));
             } else {
-                System.out.println("  " + orders.get("OD_NUM") + "\t" + orders.get("PROD_NUM") + "\t" + orders.get("PROD_NAME") + "\t\t\t" + orders.get("OD_COUNT") + "\t" + orders.get("OD_DATE"));
+//                System.out.println("  " + orders.get("OD_NUM") + "\t" + orders.get("PROD_NUM") + "\t" + orders.get("PROD_NAME") + "\t\t\t" + orders.get("OD_COUNT") + "\t" + orders.get("OD_DATE"));
             }
         }
         System.out.println("----------------------------------------------------------------------");
@@ -246,13 +257,14 @@ public class OrderViewService {
                 System.out.println("조회할 배송 번호 > ");
                 selectOdNum = ScanUtil.nextInt();
                 detailOrderList(selectOdNum);
-                return viewBrc();
+
+
 
             case 2:
                 System.out.print("정보를 조회할 제품 번호 >");
                 int prodSelect = ScanUtil.nextInt();
                 prodView(prodSelect);
-                return viewBrc();
+                return View.DELIVERY_VIEW_BRANCH;
             case 0:
                 return View.ORDER_VIEW_ADMIN_MAIN;
         }
@@ -261,27 +273,24 @@ public class OrderViewService {
 
     //------------------------------------------------------------------------------------------------------
     //case 4
-    public int deliveryProd() {
+    public int deliveryProd(int input) {
         List<Integer> dvNum = new ArrayList<>();
-        int input = 0;
 
-        while (true) {
-            System.out.println("관리할 배송 번호를 입력해주세요.");
-            int num = ScanUtil.nextInt();
-            dvNum.add(num);
-
-            System.out.println("배송 관리를 계속 하시겠습니까?\n1.예\t2.아니오");
-            input = ScanUtil.nextInt();
-            if (input == 2) {
-                System.out.println("배송 관리를 종료하시겠습니까?\n1.예\t2.아니오");
-                input = ScanUtil.nextInt();
-                if (input == 1) {
+        int num = input;
+        if(input == 0 ) {
+            while (true) {
+                System.out.println("추가 관리 할 배송 번호를 입력해주세요.(0: 종료)");
+                num = ScanUtil.nextInt();
+                if (num == 0) {
                     System.out.println("배송 관리를 종료합니다.");
                     break;
                 }//if2
-            }//if1
-        }//while
+                dvNum.add(num);
 
+            }//while
+        }else{
+            dvNum.add(input);
+        }
         System.out.println("======================================================================");
         System.out.println("배송 번호\t지점번호\t지점이름\t주문 날짜\t\t\t주문번호\t배송 상태");
         System.out.println("======================================================================");
@@ -327,17 +336,24 @@ public class OrderViewService {
                 break;
             //
             case 2:
-                switch (input) {
-                    case 1:
-//				1. 배송관리 수정
-                        break;
-                    case 2:
-//				2. 배송관리 삭제
-                        break;
-                    case 0:
-//				0. 돌아가기
-                        break;
-                }
+                num = 0;
+                    while (true) {
+                        if(dvNum.size() == 0){
+                            System.out.println("삭제할 리스트가 없어서 종료합니다");
+                            break;
+                        }
+                        System.out.println("삭제 할 배송 번호를 입력해주세요.(0: 종료)");
+                        num = ScanUtil.nextInt();
+                        if (num == 0) {
+                            System.out.println("배송번호 삭제를  종료합니다");
+                            break;
+                        }//if2
+                        for(int i =0 ; i < dvNum.size() ; i ++) {
+                            if(dvNum.get(i).equals(num)){
+                                dvNum.remove(i);
+                            }
+                        }
+                    }//while
 
                 break;
             case 0:
@@ -361,16 +377,18 @@ public class OrderViewService {
         return detailOrderList(selectOdNum);
     }
 
-    public int sw() {
+    public int sw(int dv_num) {
         int input = ScanUtil.nextInt();
         switch (input) {
             case 1:
+                deliveryProd(dv_num);
                 //배송상태 업데이트
                 break;
             case 2:
                 System.out.print("정보를 조회할 제품 번호 >");
                 int prodSelect = ScanUtil.nextInt();
-                return prodView(prodSelect);
+                prodView(prodSelect);
+                return View.ORDER_VIEW_ADMIN_MAIN;
             case 0:
                 return View.ORDER_VIEW_ADMIN_MAIN;
         }

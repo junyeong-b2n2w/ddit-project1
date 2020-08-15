@@ -42,10 +42,18 @@ public class CartService {
 		
 		switch (input) {
 		case 1:
+			if(cart.size() == 0){
+				System.out.println("장바구니가 비었습니다.");
+				return View.CART_MAIN_VIEW;
+			}
 			cartEdit();
 			return View.CART_MAIN_VIEW;
 
-		case 2: 
+		case 2:
+			if(cart.size() == 0){
+				System.out.println("장바구니가 비었습니다.");
+				return View.CART_MAIN_VIEW;
+			}
 			cartDelete();
 			return View.CART_MAIN_VIEW;
 		case 3: 
@@ -220,7 +228,7 @@ public class CartService {
 				}
 			}
 			
-		cart.add(item);
+//		cart.add(item);
 			}
 		
 		return View.ORDER_MAIN_VIEW;
