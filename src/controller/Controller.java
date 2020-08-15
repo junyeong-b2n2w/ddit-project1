@@ -73,8 +73,10 @@ public class Controller {
 				//그래프
 				case View.GRAPH: view = graphService.graphHome(); break;
 				
-				
+				//배송 ??
+				case View.DELIVERY_VIEW_ADMIN:  view = orderViewService.orderViewAdmin(); break;
 
+				case View.ORDER_VIEW_ADMIN_MAIN:  view = orderViewService.orderViewAdmin(); break;
 
 			default:
 				break;

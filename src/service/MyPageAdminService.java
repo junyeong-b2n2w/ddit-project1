@@ -85,8 +85,7 @@ public class MyPageAdminService {
 		System.out.println("┃          4. 품목관리               ┃");
 		System.out.println("┃          5. 재고관리               ┃");
 		System.out.println("┃          6. 주문배송관리            ┃");
-		System.out.println("┃          7. 주문조회               ┃");
-		System.out.println("┃          8. 통계조회               ┃");
+		System.out.println("┃          7. 통계조회               ┃");
 		System.out.println("┃          0. 이전화면               ┃");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
@@ -105,9 +104,9 @@ public class MyPageAdminService {
 			return View.PROD_CONTROL;
 		case 5: 
 			return View.WH_STOCK;
+		case 6:
+			return View.DELIVERY_VIEW_ADMIN;
 		case 7:
-			return View.ORDER_VIEW_ADMIN;
-		case 8:
 			return View.GRAPH;	
 		case 0:
 			return View.BOARD_LIST;

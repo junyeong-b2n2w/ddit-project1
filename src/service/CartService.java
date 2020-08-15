@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import controller.Controller;
+import dao.DeliveryDao;
 import util.ScanUtil;
 import util.View;
 import dao.CartDao;
@@ -27,6 +28,7 @@ public class CartService {
 	}
 	private CartDao cartDao = CartDao.getInstance();
 	private OrderDao orderDao = OrderDao.getInstance();
+	private DeliveryDao deliveryDao = DeliveryDao.getInstance();
 
 	public static List<Map<String, Object>> cart = new ArrayList<>();
 	
@@ -53,7 +55,7 @@ public class CartService {
 			}
 			cartOrder();
 			//배송을 만들어 줘야해
-
+			deliveryDao.insertOrder(Controller.loginUser.get("BRC_NUM"));
 
 			return View.ORDER_MAIN_VIEW;
 		case 0:
