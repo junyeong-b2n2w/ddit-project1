@@ -39,19 +39,20 @@ public class BoardService {
 		
 
 
-		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.printf("┃        %-32.32s                 ┃\n","게시판 번호    게시판 이름");
-		System.out.println("┠─────────────────────────────────────────────────────────────┨ ");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.printf("        %-32.32s                 \n","[게시판 번호]       [게시판 이름]       ");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 
 		//			System.out.println(board.get("BOARD_NUM") + "\t"
 		//					+ board.get("BOARD_NAME"));
 		for(Map<String, Object> board : boardList)
-			System.out.printf("┃           %d\t\t %-20.20s                    ┃\n",
+			System.out.printf("           %d\t\t    %-20.20s                    \n",
 					Integer.valueOf(String.valueOf(board.get("BOARD_NUM"))),
 					String.valueOf(board.get("BOARD_NAME")));
-		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-		System.out.println("1.게시판 선택\t2.마이페이지 " +
-				(Controller.loginUser.get("MEM_PERMISSION").equals("1") ? "": "\t3.주문하기") +"\t0.로그아웃");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("1.게시판 선택  2.마이페이지 " +
+				(Controller.loginUser.get("MEM_PERMISSION").equals("1") ? "": "  3.주문하기") +"  0.로그아웃");
 		System.out.print("입력 > ");
 		
 		int input = ScanUtil.nextInt();
@@ -84,19 +85,20 @@ public class BoardService {
 		List<Map<String, Object>> boardArticle = boardDao.selectBoard(board_num);
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.printf("┃ %-6.6s%-48.48s%-16.16s%16.16s    ┃\n", "번호","제목","작성자","작성일");
-		System.out.println("┠──────────────────────────────────────────────────────────────────────────────────────┨ ");
+		System.out.printf(" %-6.6s %-48.48s %-16.16s %16.16s    \n", "[번호]","\t[제목]","[작성자]","[작성일]");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 		for(Map<String, Object> post : boardArticle){
-			System.out.printf("%-4.4s",post.get("POST_PAR_NUM") == null ? "┃ " : "┃ └>" );
+			System.out.printf("%-4.4s",post.get("POST_PAR_NUM") == null ? "  " : "  └>" );
 
 			System.out.printf("%-4.4s",post.get("POST_NUM"));
 			System.out.printf("%-48.48s",post.get("POST_TITLE"));
 			System.out.printf("%-16.16s",post.get("MEM_NAME"));
-			System.out.printf("%-16.16s  ┃\n",DateFormatUtil.SimpleDateFormat(post.get("POST_DATE")));
+			System.out.printf("%-16.16s  \n",DateFormatUtil.SimpleDateFormat(post.get("POST_DATE")));
 
 		}
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-		System.out.println("1.조회\t2.글작성\t0.게시판목록 보기");
+		System.out.println("1.조회   2.글작성   0.게시판목록 보기");
 		System.out.print("입력 > ");
 		
 		

@@ -33,11 +33,11 @@ public class GraphService {
 		int input = 0;
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃            통계 보기               ┃");
-		System.out.println("┃                                  ┃");
-		System.out.println("┃          1. 통계 검색하기           ┃");
-		System.out.println("┃          0. 돌아가기               ┃");
-		System.out.println("┃                                  ┃");
+		System.out.println("            통계 보기               ");
+		System.out.println("                                  ");
+		System.out.println("          1. 통계 검색하기           ");
+		System.out.println("          0. 돌아가기               ");
+		System.out.println("                                  ");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.print("입력 >");
 		input = ScanUtil.nextInt();
@@ -65,12 +65,12 @@ public class GraphService {
 
 
 				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-				System.out.printf("┃       품목별 통계 결과 페이지   검색 품목명 : %-10.10s   %-6.6s ~ %-6.6s   %-8.8s %-4.4s   ┃\n",
+				System.out.printf("       품목별 통계 결과 페이지   검색 품목명 : %-10.10s   %-6.6s ~ %-6.6s   %-8.8s %-4.4s   ┃\n",
 						prod.equals("0")? "전체" : prod,startDate.equals("0")? "" : startDate , endDate.equals("0")? "" : endDate
 				, branch.equals("0")? "전제 지점" : branch + "지점", cate.equals("0") ? "": cate.equals("1") ? "식료품" : "부가기재" );
 				System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-				System.out.printf("┃ %-5.5s %-20.20s    %-15.15s   %10.10s  ┃\n","품목번호","품목명","판매량","가격");
+				System.out.printf(" %-5.5s %-20.20s    %-15.15s   %10.10s  ┃\n","품목번호","품목명","판매량","가격");
 
 
 				for(Map<String, Object> searchedProd : searchByProdList){

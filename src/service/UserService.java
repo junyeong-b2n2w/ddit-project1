@@ -38,31 +38,25 @@ public class UserService {
 	public int join() {
 		//아이디 중복 검증
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃                                                             ┃ ");
-		System.out.println("┃                      ⭐️ 회원 가입 ⭐️                           ┃ ");
-		System.out.println("┃                                                             ┃ ");
-
+		System.out.println("                                                              ");
+		System.out.println("                      ⭐️ 회원 가입 ⭐️                            ");
+		System.out.println("                                                              ");
 		// ID 5-20 영소문자 숫자 - _ 만가능
 		// PW 8-20 영소문자 숫자 !@# 만 가능
-		System.out.print("┃                      아이디 : ");
+		System.out.print("                      아이디 : ");
 		String userId = ScanUtil.nextLine();
-
-		System.out.print("┃                      비밀번호 : ");
+		System.out.print("                      비밀번호 : ");
 		String password = ScanUtil.nextLine();
-		System.out.print("┃                      비밀번호 확인 : ");
+		System.out.print("                      비밀번호 확인 : ");
 		String password2 = ScanUtil.nextLine();
-
-		System.out.print("┃                      이름 : ");
+		System.out.print("                      이름 : ");
 		String userName = ScanUtil.nextLine();
-
-
+		System.out.println("                                                              ");
 		//userId 중복 검사
-
 		Map<String, Object> idExist = userDao.isUserExist(userId);
-
 		if(null != idExist.get("MEM_ID")){
-			System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-			System.out.println("   ❌ 해당 아이디가 이미 존재합니다. ❌");
+			System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+			System.out.println("   ❌ 해당 아이디가 이미 존재합니다 ❌");
 			return View.HOME;
 		}
 
@@ -131,10 +125,10 @@ public class UserService {
 	public int login(){
 		
 		System.out.printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-		System.out.println("┃                                                             ┃ ");
-		System.out.printf("┃                  아이디>");
+		System.out.println("                                                              ");
+		System.out.printf("                   아이디>");
 		String userId = ScanUtil.nextLine();
-		System.out.printf("┃                  비밀번호>");
+		System.out.printf("                   비밀번호>");
 		String password = ScanUtil.nextLine();
 
 		//비밀번호 복호화?
@@ -153,11 +147,11 @@ public class UserService {
 		
 		
 		if(user == null){
-			System.out.println("┃                                                             ┃ ");
+			System.out.println("                                                            ");
 			System.out.printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ \n");
 			System.out.println("아이디 혹은 비밀번호를 잘못 입력하였습니다.");
 		}else{
-			System.out.println("┃                                                             ┃ ");
+			System.out.println("                                                             ");
 			System.out.printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ \n");
 
 			System.out.println("로그인 성공");

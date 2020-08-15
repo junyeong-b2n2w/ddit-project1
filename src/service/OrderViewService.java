@@ -225,7 +225,7 @@ public class OrderViewService {
 
         Object line = "0";
 
-        List<Map<String, Object> branchOrderList = orderViewDao.selectBrcNo(select);
+        List<Map<String, Object>> branchOrderList = orderViewDao.selectBrcNo(select);
         for (Map<String, Object> orders : branchOrderList) {
             if (!line.equals(orders.get("OD_NUM"))) {
                 System.out.println("----------------------------------------------------------------------");
