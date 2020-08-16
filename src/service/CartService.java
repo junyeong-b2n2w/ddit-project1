@@ -163,12 +163,12 @@ public class CartService {
 	public void cartView() {
 		int total = 0;
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃                      장바구니                                  ");
-		System.out.println("┠───────────────────────────────────────────────────────────── ");
-		System.out.printf("┃ %-4.4s %-20.20s %3.3s %10.10s %10.10s   \n","품목번호","품목명","수량","개당 가격","총 가격");
-		System.out.println("┠───────────────────────────────────────────────────────────── ");
+		System.out.println("                          장바구니                                  ");
+		System.out.println("───────────────────────────────────────────────────────────── ");
+		System.out.printf("    %-4.4s  %-20.20s %3.3s %10.10s %10.10s   \n","품목번호","품목명","수량","개당 가격","총 가격");
+		System.out.println("───────────────────────────────────────────────────────────── ");
 		for(Map<String, Object> cartItem : cart){
-			System.out.printf("┃ %-4.4s %-20.20s      %3.3s %10.10s %10.10s ┃\n",
+			System.out.printf("   %-4.4s %-20.20s      %3.3s %10.10s %10.10s \n",
 					cartItem.get("PROD_NUM"), cartItem.get("PROD_NAME"),
 					cartItem.get("CART_QUNTITY"), cartItem.get("PROD_PRICE"),
 					(Integer.valueOf(String.valueOf(cartItem.get("CART_QUNTITY")))
@@ -180,7 +180,7 @@ public class CartService {
 		total = total + Integer.valueOf(String.valueOf(cartItem.get("CART_QUNTITY")))
 				 * Integer.valueOf(String.valueOf(cartItem.get("PROD_PRICE")));
 		}
-		System.out.printf("┃ 장바구니 총 액 : %-45.45s \n", total);
+		System.out.printf("  장바구니 총액 : %-45.453s \n", total);
 
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 	}
@@ -228,7 +228,7 @@ public class CartService {
 				}
 			}
 			
-//		cart.add(item);
+		cart.add(item);
 			}
 		
 		return View.ORDER_MAIN_VIEW;

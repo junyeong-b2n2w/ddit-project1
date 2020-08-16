@@ -82,14 +82,14 @@ public int orderSearch(int cate, String search) {
 	List<Map<String, Object>> items = orderDao.orderSearchItem(cate, search, wh_num);
 
 	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-	System.out.printf("┃       검색 결과 페이지   카테고리 :%-20.20s  검색어 : %-20.20s  ┃\n", cate == 0 ? "전체": cate == 1 ? "식료품" : "부가기재" , search.equals("0") ? "전체" : search);
+	System.out.printf("      검색 결과 페이지   카테고리 :%-20.20s  검색어 : %-20.20s  \n", cate == 0 ? "전체": cate == 1 ? "식료품" : "부가기재" , search.equals("0") ? "전체" : search);
 	System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 	System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-	System.out.printf("┃ %-5.5s %-20.20s    %-15.15s   %10.10s %5.5s %8.8s ┃\n","품목번호","품목명","설명","가격","재고","카테고리");
+	System.out.printf(" %-5.5s %-20.20s    %-15.15s   %10.10s %5.5s %8.8s \n","품목번호","품목명","설명","가격","재고","카테고리");
 
 
 	for(Map<String, Object> prod : items){
-		System.out.printf("┃ %-5.5s %-20.20s    %-15.15s    %10.10s %5.5s %8.8s ┃\n",
+		System.out.printf(" %-5.5s %-20.20s    %-15.15s    %10.10s원 %5.5sEA %8.8s \n",
 				prod.get("PROD_NUM"), prod.get("PROD_NAME"), prod.get("PROD_TEXT"),
 				prod.get("PROD_PRICE") , prod.get("STOCK_COUNT"), prod.get("PROD_CTEGORY"));
 

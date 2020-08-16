@@ -35,11 +35,11 @@ public class MyPageService {
 		
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃                      마이 페이지                               ┃ ");
-		System.out.printf("┃  지 점 명 :%-17.17s 지점번호 :%-17.17s        ┃\n", myBranch.get("BRC_NAME") ,myBranch.get("BRC_NUM"));
-		System.out.printf("┃  지점주소 :%-45.45s      ┃\n", myBranch.get("BRC_ADDRESS") );
-		System.out.printf("┃  전화번호 : 0%-17.17s 이 메 일 :%-30.30s        ┃\n", myBranch.get("BRC_PHONE") ,myBranch.get("BRC_EMAIL"));
-		System.out.printf("┃  창고번호 :%-17.17s 예 치 금 :₩%-16.16s        ┃\n", myBranch.get("BRC_WH_NUM") ,myBranch.get("BRC_CREDIT"));
+		System.out.println("                     마이 페이지                                ");
+		System.out.printf("  지 점 명 :%-17.17s 지점번호 :%-17.17s        \n", myBranch.get("BRC_NAME") ,myBranch.get("BRC_NUM"));
+		System.out.printf("  지점주소 :%-45.45s      \n", myBranch.get("BRC_ADDRESS") );
+		System.out.printf("  전화번호 : 0%-17.17s 이 메 일 :%-30.30s        \n", myBranch.get("BRC_PHONE") ,myBranch.get("BRC_EMAIL"));
+		System.out.printf("  창고번호 :%-17.17s 예 치 금 :₩%-16.16s        \n", myBranch.get("BRC_WH_NUM") ,myBranch.get("BRC_CREDIT"));
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.지점 정보 수정\t2.예치금 추가\t0.돌아가기..");
 		System.out.print("입력 > ");
@@ -174,7 +174,7 @@ public class MyPageService {
 				System.out.println("비밀번호가 일치하지 않습니다.");
 			} //if
 			
-			return View.BOARD_LIST; //case1
+			return View.MY_PAGE_USER; //case1
 			
 		case 2:
 //			- 예치금확인
@@ -189,7 +189,7 @@ public class MyPageService {
 			param.add(myBranch.get("BRC_NUM"));
 			
 			myPageDao.udtBrcInfo(param, "BRC_CREDIT");
-			return View.BOARD_LIST;
+			return View.MY_PAGE_USER;
 			
 		case 0:
 			return View.BOARD_LIST;

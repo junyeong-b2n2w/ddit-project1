@@ -74,7 +74,7 @@ public class GraphService {
 
 
 				for(Map<String, Object> searchedProd : searchByProdList){
-					System.out.printf("┃ %-5.5s %-20.20s    %-15.15s    %10.10s  ┃\n",
+					System.out.printf("  %-5.5s %-20.20s    %-15.15s    %10.10s  ┃\n",
 							searchedProd.get("PROD_NUM"), searchedProd.get("PROD_NAME"), searchedProd.get("COUNT"),
 							searchedProd.get("PROD_PRICE") );
 

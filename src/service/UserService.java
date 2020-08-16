@@ -43,8 +43,11 @@ public class UserService {
 		System.out.println("                                                              ");
 		// ID 5-20 영소문자 숫자 - _ 만가능
 		// PW 8-20 영소문자 숫자 !@# 만 가능
+		System.out.print("                  ID는 5-20글자 영소문자, 숫자 - _ 만 가능합니다.\n");
 		System.out.print("                      아이디 : ");
 		String userId = ScanUtil.nextLine();
+		System.out.print("                비밀번호는 8-20글자 영소문자, 숫자 !@# 만 가능합니다. \n");
+
 		System.out.print("                      비밀번호 : ");
 		String password = ScanUtil.nextLine();
 		System.out.print("                      비밀번호 확인 : ");
