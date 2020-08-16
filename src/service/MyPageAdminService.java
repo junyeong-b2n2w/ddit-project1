@@ -120,9 +120,9 @@ public class MyPageAdminService {
 	public int myPageAdminMemControl() {
 		List<Map<String , Object>> memberList = myPageAdminDao.selectMemberList();
 
-		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("                         회 원 목 록                             ");
-		System.out.println(" ──────────────────────────────────────────────────────────── ");
+		System.out.println(" ────────────────────────────────────────────────────────────────── ");
 		System.out.printf("    %-8.8s  %-15.15s %-16.16s %-4.4s   \n","회원이름","회원아이디","가입일자","권한");
 
 		for(Map<String, Object> member : memberList){
@@ -132,7 +132,7 @@ public class MyPageAdminService {
 					member.get("MEM_PERMISSION").equals("1") ? "관리자" : "지점"
 			);
 		}
-		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.회원 권한 수정\t0.이전 페이지");
 		System.out.print("입력 > ");
 		
@@ -163,7 +163,7 @@ public class MyPageAdminService {
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("             지 점 목 록            ");
-		System.out.println("┠───────────────────────────────┨ ");
+		System.out.println("───────────────────────────────── ");
 		System.out.println("       지점번호          지점명        ");
 		for(Map<String, Object> branch : brcArticle){
 		System.out.printf("         %-8.8s      %-15.15s                     \n",
@@ -256,7 +256,7 @@ public class MyPageAdminService {
 	public int myPageAdminWhControl() {
 		List<Map<String , Object>> whList = myPageAdminDao.selectWhList();
 
-		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━창고목록━━━━━━━━━━━━━━━━━━━━━┓"); 
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━ 창고목록 ━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.printf("   %-5.5s      %-20.20s %-6.6s\n", "창고번호", "창고주소", "창고사용여부\n");
 		for(Map<String, Object> wh : whList){
 			System.out.printf("    %-5.5s        %-20.20s   %-5.5s\n" ,
@@ -264,7 +264,7 @@ public class MyPageAdminService {
 					 wh.get("WH_ADRESS"),
 					Integer.valueOf(String.valueOf(wh.get("WH_USE"))) == 1 ? "사용" : " X");
 		}
-		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.창고 추가  2.창고 삭제  3.정보수정  0.이전 페이지");
 		System.out.print("입력 > ");
 		
@@ -331,7 +331,7 @@ public class MyPageAdminService {
 			List<Map<String , Object>> prodList = myPageAdminDao.selectProdList(name , cate);
 			System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━보유한 품목━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 			System.out.println("     [제품번호]     [카테고리]     [제품명]     [제픔설명]     [가격]     ");
-			System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			System.out.println("\n\n");
 			for(Map<String, Object> prod : prodList){
 				System.out.println(prod.get("PROD_NUM") + " / " + prod.get("PROD_CTEGORY") + " / "
@@ -381,7 +381,7 @@ public class MyPageAdminService {
 		List<Map<String , Object>> whList = myPageAdminDao.selectWhList();
 		System.out.println("┏━━━━━━━━━━━━━창고별 제품 제고━━━━━━━━━━━━━━┓");
 		System.out.println("     [창고번호]   [창고주소]   [창고사용여부] ");
-		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		for(Map<String, Object> wh : whList){
 			System.out.println("	"+wh.get("WH_NUM") + "	  "
 					+ wh.get("WH_ADRESS") + "          "

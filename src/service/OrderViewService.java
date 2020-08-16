@@ -58,8 +58,8 @@ public class OrderViewService {
         }
         System.out.println("몇 건을 조회하시겠습니까? (전체조회 : 0)");
         int printCount = ScanUtil.nextInt();
-        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━   주문 내역   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.println("주문번호\t제품이름\t\t\t\t\t주문개수\t제품 가격(단가)\t주문 날짜");
+        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━   주문 내역   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.println("  주문번호\t제품이름\t\t\t\t\t주문개수\t제품 가격(단가)\t주문 날짜");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         List<Map<String, Object>> orderList = orderViewDao.orderList(Controller.loginUser.get("BRC_NUM"), serchMonth);
 
@@ -81,6 +81,7 @@ public class OrderViewService {
                 return View.ORDER_MAIN_VIEW;
             }
         }
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         return View.ORDER_MAIN_VIEW;
     }
 //------------------------------------------------------------------------------------------------------
@@ -92,7 +93,7 @@ public class OrderViewService {
 
         System.out.println("배송 번호\t지점번호\t지점이름\t주문 날짜\t\t\t주문번호\t배송 상태");
 
-        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 
         List<Map<String, Object>> orderListAdmin = deliveryDao.deliveryViewAdmin();
@@ -101,9 +102,9 @@ public class OrderViewService {
         for (Map<String, Object> orders : orderListAdmin) {
             System.out.println("  " + orders.get("DV_NUM") + "\t" + orders.get("BRC_NUM") + "\t" + orders.get("BRC_NAME")
                     + "\t" + orders.get("OD_DATE") + "\t" + orders.get("OD_NUM") + "\t" + orders.get("DV_STATUS"));
-            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
-        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         //선택지
         //배송 완료 목록, 지점별 > 기간별
         System.out.println("1.상세 내역 조회\t2.전체 배송 내역\t3.지점별 조회\t0.돌아가기");
@@ -152,10 +153,10 @@ public class OrderViewService {
                 break;
             }
         }
-        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
         System.out.println("제품번호\t제품이름\t\t\t\t제품 단가\t제품 개수");
-        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         int sum = 0;
         for (Map<String, Object> orderListAdmin : orderList) {
             System.out.println(orderListAdmin.get("PROD_NUM") + "\t" + orderListAdmin.get("PROD_NAME") + "\t\t\t" + orderListAdmin.get("PROD_PRICE") + "\t" + orderListAdmin.get("OD_COUNT"));
@@ -181,7 +182,7 @@ public class OrderViewService {
             System.out.println(orderListAdmin.get("DV_NUM") + "\t" + orderListAdmin.get("OD_NUM") + "\t  "
                     + orderListAdmin.get("BRC_NUM") + "\t" + orderListAdmin.get("BRC_NAME") + "\t" +
                     orderListAdmin.get("OD_DATE") + "\t" + orderListAdmin.get("DV_STATUS"));
-            System.out.println("┠━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┨");
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");        System.out.println("1.상세 내역 조회\t0. 돌아가기");
         int input = ScanUtil.nextInt();
@@ -204,13 +205,13 @@ public class OrderViewService {
         int count = 0;
 
         Map<String, Object> brcInfo = myPageDao.selectMyPage(selectBrcNum);
-        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 지 점 정 보━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 지 점 정 보 ━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
         System.out.println("지점번호\t지점 이름");
 
         System.out.println(brcInfo.get("BRC_NUM") + "\t" + brcInfo.get("BRC_NAME"));
 
 
-        System.out.println("----------------------------------------------------------------------");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
 //		count = 0;
 //		for(Map<String, Object> selectBranch : brcInfo){
@@ -232,14 +233,14 @@ public class OrderViewService {
 //        System.out.println("======================================================================");
 
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━ 주 문 내 역 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.println("배송 번호\t주문 번호 \t주문 날짜\t\t\t배송 상태");
+        System.out.println("  배송 번호\t주문 번호 \t주문 날짜\t\t\t배송 상태");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         Object line = "0";
 
         List<Map<String, Object>> branchOrderList = deliveryDao.deliveryViewBranch(selectBrcNum);
         for (Map<String, Object> orders : branchOrderList) {
             if (!line.equals(orders.get("OD_NUM"))) {
-                System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
                 line = orders.get("OD_NUM");
                 Map<String, Object> delivery = deliveryDao.deliveryView(orders.get("OD_NUM"));
 
@@ -253,7 +254,8 @@ public class OrderViewService {
 //                System.out.println("  " + orders.get("OD_NUM") + "\t" + orders.get("PROD_NUM") + "\t" + orders.get("PROD_NAME") + "\t\t\t" + orders.get("OD_COUNT") + "\t" + orders.get("OD_DATE"));
             }
         }
-        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");        System.out.println("1.배송 상세 조회\t2.제품 조회\t0.돌아가기");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        System.out.println("1.배송 상세 조회\t2.제품 조회\t0.돌아가기");
         int input = ScanUtil.nextInt();
         switch (input) {
             case 1:
@@ -297,8 +299,8 @@ public class OrderViewService {
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 
 
-        System.out.println("배송 번호\t지점번호\t지점이름\t주문 날짜\t\t\t주문번호\t배송 상태");
-        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+        System.out.println("   배송 번호\t지점번호\t지점이름\t주문 날짜\t\t\t주문번호\t배송 상태");
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         List<Map<String, Object>> viewAllList = new ArrayList<>();
 
         for (int i = 0; i < dvNum.size(); i++) {
@@ -310,7 +312,7 @@ public class OrderViewService {
         for (Map<String, Object> orders : viewAllList) {
             System.out.println("  " + orders.get("DV_NUM") + "\t" + orders.get("BRC_NUM") + "\t" + orders.get("BRC_NAME")
                     + "\t" + orders.get("OD_DATE") + "\t" + orders.get("OD_NUM") + "\t" + orders.get("DV_STATUS"));
-            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         System.out.println("1.배송 상태 업데이트\t0.돌아가기");
@@ -374,7 +376,7 @@ public class OrderViewService {
     public int prodView(int prodSelect) {
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
         System.out.println("제품번호\t카테고리\t제품명\t\t\t제품설명\t가격");
-        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         Map<String, Object> prod = orderViewDao.prodView(prodSelect);
         System.out.println(prod.get("PROD_NUM") + "\t" + prod.get("PROD_CTEGORY") + "\t" + prod.get("PROD_NAME") + "\t" + prod.get("PROD_TEXT") + "\t" + prod.get("PROD_PRICE"));
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
