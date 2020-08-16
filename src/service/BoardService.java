@@ -140,13 +140,13 @@ public class BoardService {
 
 		List<Map<String, Object>> comment = boardDao.commentList(selectedPostNo);
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.printf("┃ 글 번호\t : %-54.54s  ┃\n", postArticle.get("POST_NUM"));
-		System.out.printf("┃ 글 제목\t : %-54.54s  ┃\n", postArticle.get("POST_TITLE"));
-		System.out.printf("┃ 작성자 \t : %-54.54s  ┃\n", postArticle.get("MEM_NAME"));
-		System.out.printf("┃ 작성일 \t : %-54.54s  ┃\n", DateFormatUtil.SimpleDateFormat(postArticle.get("POST_DATE")));
-		System.out.printf("┃ 조회수 \t : %-54.54s  ┃\n", postArticle.get("POST_VIEW"));
+		System.out.printf("  글 번호\t : %-54.54s  ┃\n", postArticle.get("POST_NUM"));
+		System.out.printf("  글 제목\t : %-54.54s  ┃\n", postArticle.get("POST_TITLE"));
+		System.out.printf("  작성자 \t : %-54.54s  ┃\n", postArticle.get("MEM_NAME"));
+		System.out.printf("  작성일 \t : %-54.54s  ┃\n", DateFormatUtil.SimpleDateFormat(postArticle.get("POST_DATE")));
+		System.out.printf("  조회수 \t : %-54.54s  ┃\n", postArticle.get("POST_VIEW"));
 		System.out.println("┠━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┨");
-		System.out.printf("┃ %-60.60s ┃\n", postArticle.get("POST_CONTENT"));
+		System.out.printf("   %-60.60s ┃\n", postArticle.get("POST_CONTENT"));
 
 		System.out.println("┠━━━━━━━━━━━━━━━━━━━━━━━━━ 댓 글 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┨");
 

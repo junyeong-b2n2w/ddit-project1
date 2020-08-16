@@ -66,7 +66,16 @@ public class MyPageDao {
 		}
 		return jdbc.update(sql, param);
 	}
-	
-	
-	
+
+
+	public int userPasswordUpdate(Object MEM_NUM, String encPassword) {
+
+		String sql = "UPDATE TAB_MEMBER SET MEM_PASSWORD = ? WHERE MEM_NUM = ?";
+
+		List<Object> param = new ArrayList<>();
+		param.add(encPassword);
+		param.add(MEM_NUM);
+
+		return jdbc.update(sql, param);
+	}
 }

@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import util.ScanUtil;
 import util.View;
@@ -36,7 +38,7 @@ public class MyPageService {
 		System.out.println("┃                      마이 페이지                               ┃ ");
 		System.out.printf("┃  지 점 명 :%-17.17s 지점번호 :%-17.17s        ┃\n", myBranch.get("BRC_NAME") ,myBranch.get("BRC_NUM"));
 		System.out.printf("┃  지점주소 :%-45.45s      ┃\n", myBranch.get("BRC_ADDRESS") );
-		System.out.printf("┃  전화번호 :%-17.17s 이 메 일 :%-17.17s        ┃\n", myBranch.get("BRC_PHONE") ,myBranch.get("BRC_EMAIL"));
+		System.out.printf("┃  전화번호 : 0%-17.17s 이 메 일 :%-30.30s        ┃\n", myBranch.get("BRC_PHONE") ,myBranch.get("BRC_EMAIL"));
 		System.out.printf("┃  창고번호 :%-17.17s 예 치 금 :₩%-16.16s        ┃\n", myBranch.get("BRC_WH_NUM") ,myBranch.get("BRC_CREDIT"));
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("1.지점 정보 수정\t2.예치금 추가\t0.돌아가기..");
@@ -49,7 +51,7 @@ public class MyPageService {
 			password = pass(password);
 			
 			if(password.equals(Controller.loginUser.get("MEM_PASSWORD"))){
-				System.out.println("1.지점 이름\t2.주소\t3.이메일\t4.전화번호\t5.창고번호");
+				System.out.println("1.지점 이름\t2.주소\t3.이메일\t4.전화번호\t5.창고번호\t6.비밀번호\t0.돌아가기");
 				input = ScanUtil.nextInt();
 				String type = null;
 				switch (input) {
@@ -115,7 +117,56 @@ public class MyPageService {
 					myPageDao.udtBrcInfo(param, type);
 					Controller.loginUser.put("BRC_NUM", (myPageDao.selectMyPage(Controller.loginUser.get("MEM_NUM"))).get("BRC_NUM"));
 					return View.MY_PAGE_USER;
-				
+				case 6:
+
+
+					System.out.print("변경할 비밀번호 : ");
+					String password1 = ScanUtil.nextLine();
+					System.out.print("변경할 비밀번호 확인 : ");
+					String password2 = ScanUtil.nextLine();
+
+					String regexPw = "[a-z0-9!@#]{8,20}";
+					Pattern p_pw= Pattern.compile(regexPw);
+
+
+					Matcher m_pw = p_pw.matcher(password1);
+
+					if(!m_pw.matches()){
+						System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+						System.out.println("   ❌ 비밀번호는 8-20글자 영소문자, 숫자 !@# 만 가능합니다. ❌");
+						return View.MY_PAGE_USER;
+					}
+					if(!password1.equals(password2)){
+						System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+						System.out.println("   ❌ 비밀번호와 비밀번호 확인이 일치하지 않습니다. ❌");
+						return View.MY_PAGE_USER;
+					}
+
+					//비밀번호 암호화
+					MessageDigest md = null;
+					try {
+						md = MessageDigest.getInstance("SHA-256");
+					} catch (NoSuchAlgorithmException e) {
+						e.printStackTrace();
+					}
+					md.update(password1.getBytes());
+					String encPassword = String.format("%064x", new BigInteger(1, md.digest()));
+
+
+
+					int result = myPageDao.userPasswordUpdate(Controller.loginUser.get("MEM_NUM"), encPassword);
+					if(result ==1 ){
+						System.out.println("비밀번호가 변경되었습니다.");
+						Controller.loginUser.put("MEM_PASSWORD", encPassword);
+					}else{
+						System.out.println("비밀번호가 변경되지 않았습니다.");
+					}
+					return View.MY_PAGE_USER;
+
+
+					case 0:
+						return View.MY_PAGE_USER;
+
 				}
 				
 				//switch

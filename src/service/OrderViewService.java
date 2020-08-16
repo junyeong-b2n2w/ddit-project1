@@ -100,7 +100,7 @@ public class OrderViewService {
         System.out.println("======================================================================");
         //선택지
         //배송 완료 목록, 지점별 > 기간별
-        System.out.println("1.상세 내역 조회\t2.전체 배송 내역\t3.지점별 조회\t4.배송 상태 관리\t0.돌아가기");
+        System.out.println("1.상세 내역 조회\t2.전체 배송 내역\t3.지점별 조회\t0.돌아가기");
         int input = ScanUtil.nextInt();
 
         switch (input) {
@@ -117,9 +117,9 @@ public class OrderViewService {
                 selectBrcNum = ScanUtil.nextInt();
                 viewBrc(selectBrcNum);
                 return View.ORDER_VIEW_ADMIN_MAIN;
-            case 4:
-                deliveryProd(0);
-                break;
+//            case 4:
+//                deliveryProd(0);
+//                break;
             case 0:
                 return View.MY_PAGE_ADMIN;
         }
@@ -308,7 +308,7 @@ public class OrderViewService {
             System.out.println("----------------------------------------------------------------------");
         }
         System.out.println("======================================================================");
-        System.out.println("1.배송 상태 업데이트\t2.배송 관리 목록 수정, 삭제\t0.돌아가기");
+        System.out.println("1.배송 상태 업데이트\t0.돌아가기");
         input = ScanUtil.nextInt();
         switch (input) {
             case 1:
@@ -335,27 +335,27 @@ public class OrderViewService {
                 }
                 break;
             //
-            case 2:
-                num = 0;
-                    while (true) {
-                        if(dvNum.size() == 0){
-                            System.out.println("삭제할 리스트가 없어서 종료합니다");
-                            break;
-                        }
-                        System.out.println("삭제 할 배송 번호를 입력해주세요.(0: 종료)");
-                        num = ScanUtil.nextInt();
-                        if (num == 0) {
-                            System.out.println("배송번호 삭제를  종료합니다");
-                            break;
-                        }//if2
-                        for(int i =0 ; i < dvNum.size() ; i ++) {
-                            if(dvNum.get(i).equals(num)){
-                                dvNum.remove(i);
-                            }
-                        }
-                    }//while
-
-                break;
+//            case 2:
+//                num = 0;
+//                    while (true) {
+//                        if(dvNum.size() == 0){
+//                            System.out.println("삭제할 리스트가 없어서 종료합니다");
+//                            break;
+//                        }
+//                        System.out.println("삭제 할 배송 번호를 입력해주세요.(0: 종료)");
+//                        num = ScanUtil.nextInt();
+//                        if (num == 0) {
+//                            System.out.println("배송번호 삭제를  종료합니다");
+//                            break;
+//                        }//if2
+//                        for(int i =0 ; i < dvNum.size() ; i ++) {
+//                            if(dvNum.get(i).equals(num)){
+//                                dvNum.remove(i);
+//                            }
+//                        }
+//                    }//while
+//
+//                break;
             case 0:
 //			0. 돌아가기
                 break;
