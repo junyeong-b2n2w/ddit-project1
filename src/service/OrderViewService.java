@@ -101,7 +101,7 @@ public class OrderViewService {
 
         for (Map<String, Object> orders : orderListAdmin) {
             System.out.println("  " + orders.get("DV_NUM") + "\t" + orders.get("BRC_NUM") + "\t" + orders.get("BRC_NAME")
-                    + "\t" + orders.get("OD_DATE") + "\t" + orders.get("OD_NUM") + "\t" + orders.get("DV_STATUS"));
+                    + "\t" + DateFormatUtil.SimpleDateFormat(orders.get("OD_DATE")) + "\t" + orders.get("OD_NUM") + "\t" + orders.get("DV_STATUS"));
             System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");

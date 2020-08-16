@@ -85,14 +85,14 @@ public class BoardService {
 		List<Map<String, Object>> boardArticle = boardDao.selectBoard(board_num);
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.printf(" %-6.6s %-48.48s %-16.16s %16.16s    \n", "[번호]","\t[제목]","[작성자]","[작성일]");
+		System.out.printf(" %-6.6s %-30.30s %-16.16s %16.16s    \n", "[번호]","\t[제목]","[작성자]","[작성일]");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 		for(Map<String, Object> post : boardArticle){
 			System.out.printf("%-4.4s",post.get("POST_PAR_NUM") == null ? "  " : "  └>" );
 
 			System.out.printf("%-4.4s",post.get("POST_NUM"));
-			System.out.printf("%-48.48s",post.get("POST_TITLE"));
+			System.out.printf("%-30.30s",post.get("POST_TITLE"));
 			System.out.printf("%-16.16s",post.get("MEM_NAME"));
 			System.out.printf("%-16.16s  \n",DateFormatUtil.SimpleDateFormat(post.get("POST_DATE")));
 

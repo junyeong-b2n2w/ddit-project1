@@ -85,7 +85,7 @@ public class MyPageAdminService {
 		System.out.println("            4. 품목관리              ");
 		System.out.println("            5. 재고관리              ");
 		System.out.println("            6. 주문배송관리           ");
-		System.out.println("            7. 통계조회              ");
+		System.out.println("            7. 판매량 통계조회              ");
 		System.out.println("            0. 이전화면              ");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 

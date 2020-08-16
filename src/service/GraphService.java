@@ -33,9 +33,9 @@ public class GraphService {
 		int input = 0;
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("            통계 보기               ");
+		System.out.println("           판매량 통계 보기               ");
 		System.out.println("                                  ");
-		System.out.println("          1. 통계 검색하기           ");
+		System.out.println("          1. 판매량 통계 검색하기           ");
 		System.out.println("          0. 돌아가기               ");
 		System.out.println("                                  ");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
