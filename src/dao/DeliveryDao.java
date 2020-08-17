@@ -40,7 +40,8 @@ public class DeliveryDao {
 		String sql = "SELECT dv_num, dv_status, tab_delivery.OD_NUM, OD_DATE" +
 				" FROM tab_delivery , tab_order" +
 				" WHERE TAB_DELIVERY.OD_NUM = tab_order.od_num" +
-				" AND tab_delivery.od_num = ?";
+				" AND tab_delivery.od_num = ?" +
+				" ORDER BY tab_delivery.dv_num desc";;
 		
 		List<Object> param = new ArrayList<>();
 		param.add(od_Num);
@@ -53,7 +54,8 @@ public class DeliveryDao {
 		String sql = "SELECT od.od_num, brc.brc_num, brc.brc_name, od.od_date, dv.dv_num, dv.dv_status"
 				+ " FROM tab_delivery dv, tab_branch brc, tab_order od"
 				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = dv.od_num"
-				+ " AND dv_status != '배송 완료'";
+				+ " AND dv_status != '배송 완료'"
+				+ " ORDER BY dv.dv_num desc";
 		
 		return jdbc.selectList(sql);
 	}
@@ -63,8 +65,8 @@ public class DeliveryDao {
 		String sql = "SELECT od.od_num, brc.brc_num, brc.brc_name, od.od_date, dv.dv_num, dv.dv_status"
 				+ " FROM tab_delivery dv, tab_branch brc, tab_order od"
 				+ " WHERE brc.brc_num = od.od_brc_num AND od.od_num = dv.od_num"
-				+ " AND dv_status != '배송 완료'"
-				+ " AND BRC_NUM = ?";
+				+ " AND BRC_NUM = ?"
+				+ " ORDER BY dv.dv_num desc";
 		List<Object> param = new ArrayList<>();
 		param.add(brc_num);
 		return jdbc.selectList(sql, param);
